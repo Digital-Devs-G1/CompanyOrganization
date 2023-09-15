@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ReportsDbContext))]
-    [Migration("20230914031835_1")]
-    partial class _1
+    [Migration("20230915145354_CreatInit")]
+    partial class CreatInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,32 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Domain.Entities.Company", b =>
+                {
+                    b.Property<int>("Cuit")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Cuit"));
+
+                    b.Property<string>("Adress")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("Tel")
+                        .HasColumnType("int");
+
+                    b.HasKey("Cuit");
+
+                    b.ToTable("Companys");
+                });
 
             modelBuilder.Entity("Domain.Entities.DataType", b =>
                 {
@@ -41,6 +67,30 @@ namespace Infrastructure.Migrations
                     b.HasKey("DataTypeId");
 
                     b.ToTable("DataType");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Department", b =>
+                {
+                    b.Property<int>("DepartmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DepartmentId"));
+
+                    b.Property<int>("CompanyCuit")
+                        .HasMaxLength(30)
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("DepartmentId");
+
+                    b.HasIndex("CompanyCuit");
+
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("Domain.Entities.Report", b =>
@@ -135,6 +185,17 @@ namespace Infrastructure.Migrations
                     b.ToTable("VariableFields");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Department", b =>
+                {
+                    b.HasOne("Domain.Entities.Company", "CompanyNav")
+                        .WithMany("Departments")
+                        .HasForeignKey("CompanyCuit")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CompanyNav");
+                });
+
             modelBuilder.Entity("Domain.Entities.ReportTracking", b =>
                 {
                     b.HasOne("Domain.Entities.Report", "Report")
@@ -171,6 +232,11 @@ namespace Infrastructure.Migrations
                     b.Navigation("DataTypeNav");
 
                     b.Navigation("ReportNav");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Company", b =>
+                {
+                    b.Navigation("Departments");
                 });
 
             modelBuilder.Entity("Domain.Entities.DataType", b =>

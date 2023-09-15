@@ -11,10 +11,13 @@ namespace Infrastructure.Persistence
         public DbSet<ReportOperation> ReportOperations { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<ReportTracking> ReportTrackings { get; set; }
+        public DbSet<Company> Companys { get; set; }
+        public DbSet<Department> Departments { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=MSI;Database=RendicionGastos;User Id=rootPS;Password=1234;Integrated Security=True;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Server=localhost;Database=RendicionGastos;User Id=rootPS;Password=123456;Integrated Security=True;TrustServerCertificate=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,6 +27,8 @@ namespace Infrastructure.Persistence
             modelBuilder.ApplyConfiguration(new ReportTrackingConfiguration());
             modelBuilder.ApplyConfiguration(new VariableFieldConfiguration());
             modelBuilder.ApplyConfiguration(new DataTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new CompanyConfiguration());
+            modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
         }
     }
 }

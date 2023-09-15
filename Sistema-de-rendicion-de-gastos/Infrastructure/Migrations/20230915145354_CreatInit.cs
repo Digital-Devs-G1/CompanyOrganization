@@ -6,11 +6,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class _1 : Migration
+    public partial class CreatInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Companys",
+                columns: table => new
+                {
+                    Cuit = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Adress = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Tel = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Companys", x => x.Cuit);
+                });
+
             migrationBuilder.CreateTable(
                 name: "DataType",
                 columns: table => new
@@ -49,6 +64,26 @@ namespace Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Reports", x => x.ReportId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Departments",
+                columns: table => new
+                {
+                    DepartmentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    CompanyCuit = table.Column<int>(type: "int", maxLength: 30, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Departments", x => x.DepartmentId);
+                    table.ForeignKey(
+                        name: "FK_Departments_Companys_CompanyCuit",
+                        column: x => x.CompanyCuit,
+                        principalTable: "Companys",
+                        principalColumn: "Cuit",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,6 +141,11 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Departments_CompanyCuit",
+                table: "Departments",
+                column: "CompanyCuit");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ReportTrackings_ReportId",
                 table: "ReportTrackings",
                 column: "ReportId");
@@ -125,10 +165,16 @@ namespace Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Departments");
+
+            migrationBuilder.DropTable(
                 name: "ReportTrackings");
 
             migrationBuilder.DropTable(
                 name: "VariableFields");
+
+            migrationBuilder.DropTable(
+                name: "Companys");
 
             migrationBuilder.DropTable(
                 name: "ReportOperations");
