@@ -3,6 +3,7 @@ using Application.DTO.Response;
 using Application.Interfaces.IRepositories;
 using Application.Interfaces.IServices;
 using Application.UseCases;
+//using Application.UseCases;
 using Infrastructure;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -22,9 +23,9 @@ namespace Presentation.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddSingleton<DbContext, ReportsDbContext>();
-            builder.Services.AddSingleton<IVariableFieldQuery, VariableFieldQuery>();
-            builder.Services.AddSingleton<IVariableFieldService, VariableFieldService>();
+            builder.Services.AddSingleton<ReportsDbContext>();
+            builder.Services.AddTransient<ICompanyQuery, CompanyQuery>();
+            builder.Services.AddTransient<ICompanyService, CompanyService>();
 
             var app = builder.Build();
 
@@ -42,9 +43,9 @@ namespace Presentation.API
 
             app.MapControllers();
 
-            //app.Run();
+            app.Run();
 
-            Run(app.Services);
+            //Run(app.Services);
 
         }
 
@@ -52,21 +53,34 @@ namespace Presentation.API
         {
             while (true)
             {
-                var service = services.GetService<IVariableFieldService>();
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("Ingrese el numero de template: ");
-                int i = int.Parse(Console.ReadLine());
-                IList<VariableFieldResponse> fields = service.GetTemplate(i);
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("\nRendicion de gatos:\n-------------------\n");
-                Console.ForegroundColor = ConsoleColor.White;
-                foreach (VariableFieldResponse field in fields)
-                {
-                    Console.Write(field.Label + ": ");
-                    Console.ReadLine();
-                }
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("\nSu Reporte se ingreso con exito\n");
+                //var service = services.GetService<IVariableFieldService>();
+                //Console.ForegroundColor = ConsoleColor.Green;
+                //Console.Write("Ingrese el numero de template: ");
+                //int i = int.Parse(Console.ReadLine());
+                //IList<VariableFieldResponse> fields = service.GetTemplate(i);
+                //Console.ForegroundColor = ConsoleColor.Yellow;
+                //Console.WriteLine("\nRendicion de gatos:\n-------------------\n");
+                //Console.ForegroundColor = ConsoleColor.White;
+                //foreach (VariableFieldResponse field in fields)
+                //{
+                //    Console.Write(field.Label + ": ");
+                //    Console.ReadLine();
+                //}
+                //Console.ForegroundColor = ConsoleColor.Green;
+                //Console.WriteLine("\nSu Reporte se ingreso con exito\n");
+
+                //Instanciar un DbContext
+                var db = new ReportsDbContext();
+                //Instanciar command usando el DbContext
+                var query = new CompanyQuery(db);
+                //Llamar al metodo implementado
+                //Console.WriteLine(query.GetCompany(1)[0].Adress);
+                //Instanciar el servicio inyectando el command
+                //llamar al metodo getcompany
+                var service = new CompanyService(query);
+                Console.WriteLine(service.GetCompanys()[0].Adress);
+                Console.ReadLine();
+
             }
         }
     }

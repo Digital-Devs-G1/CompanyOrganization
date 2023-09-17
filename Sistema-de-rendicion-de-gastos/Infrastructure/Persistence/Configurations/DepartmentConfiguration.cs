@@ -10,17 +10,9 @@ namespace Infrastructure.Persistence.Configurations
         {
             builder.HasKey(e => e.DepartmentId);
 
-            builder.Property(e => e.CompanyCuit)
-                .IsRequired()
-                .HasMaxLength(30);
-
             builder.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(30);
-
-            builder.HasOne(rt => rt.CompanyNav)
-               .WithMany(r => r.Departments)
-               .HasForeignKey(rt => rt.CompanyCuit);
 
         }
 

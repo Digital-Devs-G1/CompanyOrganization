@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Infrastructure.Persistence.Configurations;
+using Infrastructure.Persistence.Inserts;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence
@@ -29,6 +30,8 @@ namespace Infrastructure.Persistence
             modelBuilder.ApplyConfiguration(new DataTypeConfiguration());
             modelBuilder.ApplyConfiguration(new CompanyConfiguration());
             modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
+            modelBuilder.ApplyConfiguration(new PayrollConfiguration());
+            modelBuilder.ApplyConfiguration(new CompanyInserts());
         }
     }
 }

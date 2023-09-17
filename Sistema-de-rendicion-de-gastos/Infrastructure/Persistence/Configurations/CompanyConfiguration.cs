@@ -13,18 +13,23 @@ namespace Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Company> builder)
         {
-            builder.HasKey(e => e.Cuit);
+            builder.HasKey(e => e.CompanyId);
 
             builder.Property(e => e.Name)
                 .IsRequired()
-                .HasMaxLength(30);
+                .HasMaxLength(50);
 
             builder.Property(e => e.Adress)
                 .IsRequired()
                 .HasMaxLength(100);
 
-            builder.Property(e => e.Tel)
-                .IsRequired();
+            builder.Property(e => e.Cuit)
+                .IsRequired()
+                .HasMaxLength(13);
+
+            builder.Property(e => e.Phone)
+                .IsRequired()
+                .HasMaxLength(13);
         }
 
     }
