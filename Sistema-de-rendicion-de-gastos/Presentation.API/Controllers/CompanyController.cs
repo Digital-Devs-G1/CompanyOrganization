@@ -22,5 +22,13 @@ namespace Presentation.API.Controllers
             var traking =  _companyService.GetCompany(id);
             return Ok(traking);
         }
+
+        [HttpGet]
+        [Route("GetCompanys/")]
+        public IActionResult GetCompanys()
+        {
+            var traking = _companyService.GetCompanys();
+            return Ok(traking);
+        }
     }
 }

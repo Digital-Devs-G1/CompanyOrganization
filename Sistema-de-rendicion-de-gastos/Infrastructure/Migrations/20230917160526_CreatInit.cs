@@ -79,6 +79,18 @@ namespace Infrastructure.Migrations
                     { 5, "Av. La Plata 3401", "30-51199267-9", "El bosque", "7539-8916" }
                 });
 
+            migrationBuilder.InsertData(
+                table: "Departments",
+                columns: new[] { "DepartmentId", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Recursos Humanos" },
+                    { 2, "Marketing" },
+                    { 3, "Comercial" },
+                    { 4, "Control de Gestión" },
+                    { 5, "Logística y Operaciones" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Payrolls_CompanyId",
                 table: "Payrolls",

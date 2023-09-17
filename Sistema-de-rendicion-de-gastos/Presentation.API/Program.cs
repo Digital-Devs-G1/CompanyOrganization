@@ -26,6 +26,8 @@ namespace Presentation.API
             builder.Services.AddSingleton<ReportsDbContext>();
             builder.Services.AddTransient<ICompanyQuery, CompanyQuery>();
             builder.Services.AddTransient<ICompanyService, CompanyService>();
+            builder.Services.AddSingleton<IDepartmentQuery, DepartmentQuery>();
+            builder.Services.AddSingleton<IDepartmentService, DepartmentService>();
 
             var app = builder.Build();
 

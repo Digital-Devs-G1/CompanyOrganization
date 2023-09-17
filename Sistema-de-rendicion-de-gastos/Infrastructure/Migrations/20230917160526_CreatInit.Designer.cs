@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ReportsDbContext))]
-    [Migration("20230917053728_CreatInit")]
+    [Migration("20230917160526_CreatInit")]
     partial class CreatInit
     {
         /// <inheritdoc />
@@ -115,6 +115,33 @@ namespace Infrastructure.Migrations
                     b.HasKey("DepartmentId");
 
                     b.ToTable("Departments");
+
+                    b.HasData(
+                        new
+                        {
+                            DepartmentId = 1,
+                            Name = "Recursos Humanos"
+                        },
+                        new
+                        {
+                            DepartmentId = 2,
+                            Name = "Marketing"
+                        },
+                        new
+                        {
+                            DepartmentId = 3,
+                            Name = "Comercial"
+                        },
+                        new
+                        {
+                            DepartmentId = 4,
+                            Name = "Control de Gestión"
+                        },
+                        new
+                        {
+                            DepartmentId = 5,
+                            Name = "Logística y Operaciones"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Payroll", b =>
