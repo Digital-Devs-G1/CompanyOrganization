@@ -7,15 +7,9 @@ namespace Infrastructure.Persistence
 {
     public class ReportsDbContext : DbContext
     {
-        public DbSet<VariableField> VariableFields { get; set; }
-        public DbSet<DataType> DataType { get; set; }
-        public DbSet<ReportOperation> ReportOperations { get; set; }
-        public DbSet<Report> Reports { get; set; }
-        public DbSet<ReportTracking> ReportTrackings { get; set; }
         public DbSet<Company> Companys { get; set; }
         public DbSet<Department> Departments { get; set; }
-
-
+        public DbSet<Payroll> Payrolls { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=localhost;Database=RendicionGastos;User Id=rootPS;Password=123456;Integrated Security=True;TrustServerCertificate=True");
@@ -23,11 +17,6 @@ namespace Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new ReportOperationConfiguration());
-            modelBuilder.ApplyConfiguration(new ReportConfiguration());
-            modelBuilder.ApplyConfiguration(new ReportTrackingConfiguration());
-            modelBuilder.ApplyConfiguration(new VariableFieldConfiguration());
-            modelBuilder.ApplyConfiguration(new DataTypeConfiguration());
             modelBuilder.ApplyConfiguration(new CompanyConfiguration());
             modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
             modelBuilder.ApplyConfiguration(new PayrollConfiguration());
