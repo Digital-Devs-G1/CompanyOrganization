@@ -21,6 +21,7 @@ namespace Infrastructure.Persistence
             modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
             modelBuilder.ApplyConfiguration(new PayrollConfiguration());
             modelBuilder.ApplyConfiguration(new CompanyInserts());
+            modelBuilder.ApplyConfiguration(new DepartmentInserts());
         }
     }
 }

@@ -7,13 +7,10 @@ using System.Threading.Tasks;
 
 namespace Application.DTO.Response
 {
-    public class CompanyResponse
+    public class DepartmentResponse
     {
-        public int CompanyId { get; set; }
-        public required string Cuit { get; set; }
+        public int DepartmentId { get; set; }
         public required string Name { get; set; }
-        public required string Adress { get; set; }
-        public required string Phone { get; set; }
 
     }
 }
