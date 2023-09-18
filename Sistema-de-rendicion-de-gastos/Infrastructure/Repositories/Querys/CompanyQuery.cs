@@ -4,28 +4,28 @@ using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.Design;
 
-namespace Infrastructure
+namespace Infrastructure.Repositories.Querys
 {
     public class CompanyQuery : ICompanyQuery
     {
-        private ReportsDbContext _dbContext;
+        private readonly ReportsDbContext _dbContext;
 
         public CompanyQuery(ReportsDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public Company? GetCompany(int companyId)
+        public async Task<Company>? GetCompany(int companyId)
         {
-            var list = _dbContext.Set<Company>().Where(x => x.CompanyId == companyId).ToList();
-            if(list.Count > 0) 
+            var list = await _dbContext.Set<Company>().Where(x => x.CompanyId == companyId).ToListAsync();
+            if (list.Count > 0)
                 return list[0];
             return null;
         }
 
-        public IList<Company> GetCompanys()
+        public async Task<IList<Company>> GetCompanys()
         {
-            return _dbContext.Set<Company>().ToList();
+            return await _dbContext.Set<Company>().ToListAsync();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Application.Interfaces.IServices;
+﻿using Application.DTO.Request;
+using Application.Interfaces.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,8 +9,7 @@ namespace Presentation.API.Controllers
     [ApiController]
     public class DepartmentController : ControllerBase
     {
-        private IDepartmentService _departmentService;
-
+        private readonly IDepartmentService _departmentService;
         public DepartmentController(IDepartmentService departmentService)
         {
             _departmentService = departmentService;
@@ -17,17 +17,25 @@ namespace Presentation.API.Controllers
 
         [HttpGet]
         [Route("GetDepartment/{id}")]
-        public IActionResult GetCompany(int id)
+        public async Task<IActionResult> GetCompany(int id)
         {
-            var traking = _departmentService.GetDepartment(id);
+            var traking = await _departmentService.GetDepartment(id);
             return Ok(traking);
         }
 
         [HttpGet]
         [Route("GetDepartments/")]
-        public IActionResult GetDepartments()
+        public async Task<IActionResult> GetDepartments()
         {
-            var traking = _departmentService.GetDepartments();
+            var traking = await _departmentService.GetDepartments();
+            return Ok(traking);
+        }
+
+        [HttpPost]
+        [Route("PostDepartments/")]
+        public async Task<IActionResult> CreateDepartment(DepartmentRequest request)
+        {
+            var traking = await _departmentService.CreateDepartment(request);
             return Ok(traking);
         }
     }

@@ -4,28 +4,27 @@ using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.Design;
 
-namespace Infrastructure
+namespace Infrastructure.Repositories.Querys
 {
     public class DepartmentQuery : IDepartmentQuery
     {
-        private ReportsDbContext _dbContext;
+        private readonly ReportsDbContext _dbContext;
 
         public DepartmentQuery(ReportsDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-
-        public Department? GetDepartment(int departmentId)
+        public async Task<Department>? GetDepartment(int departmentId)
         {
-            var list = _dbContext.Set<Department>().Where(x => x.DepartmentId == departmentId).ToList();
-            if(list.Count > 0) 
+            var list = await _dbContext.Set<Department>().Where(x => x.DepartmentId == departmentId).ToListAsync();
+            if (list.Count > 0)
                 return list[0];
             return null;
         }
 
-        public IList<Department> GetDepartments()
+        public async Task<IList<Department>> GetDepartments()
         {
-            return _dbContext.Set<Department>().ToList();
+            return await _dbContext.Set<Department>().ToListAsync();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Application.Interfaces.IServices;
+﻿using Application.DTO.Request;
+using Application.Interfaces.IServices;
+using Application.UseCases;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,26 +10,34 @@ namespace Presentation.API.Controllers
     [ApiController]
     public class CompanyController : ControllerBase
     {
-        private ICompanyService _companyService;
-
+        private readonly ICompanyService _companyService;
         public CompanyController(ICompanyService companyService)
         {
             _companyService = companyService;
+
         }
 
         [HttpGet]
         [Route("GetCompany/{id}")]
-        public IActionResult GetCompany(int id)
+        public async Task<IActionResult> GetCompany(int id)
         {
-            var traking =  _companyService.GetCompany(id);
+            var traking = await _companyService.GetCompany(id);
             return Ok(traking);
         }
 
         [HttpGet]
         [Route("GetCompanys/")]
-        public IActionResult GetCompanys()
+        public async Task<IActionResult> GetCompanys()
         {
-            var traking = _companyService.GetCompanys();
+            var traking = await _companyService.GetCompanys();
+            return Ok(traking);
+        }
+
+        [HttpPost]
+        [Route("PostDepartments/")]
+        public async Task<IActionResult> CreateDepartment(CompanyRequest request)
+        {
+            var traking = await _companyService.CreateCompany(request);
             return Ok(traking);
         }
     }

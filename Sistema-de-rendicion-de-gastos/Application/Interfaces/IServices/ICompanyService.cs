@@ -1,10 +1,13 @@
-﻿using Application.DTO.Response;
+﻿using Application.DTO.Request;
+using Application.DTO.Response;
+using Domain.Entities;
 
 namespace Application.Interfaces.IServices
 {
     public interface ICompanyService
     {
-        public IList<CompanyResponse> GetCompanys();
-        public CompanyResponse? GetCompany(int companyId); 
+        Task<IList<CompanyResponse>> GetCompanys();
+        Task<CompanyResponse>? GetCompany(int companyId);
+        Task<Company> CreateCompany(CompanyRequest request);
     }
 }
