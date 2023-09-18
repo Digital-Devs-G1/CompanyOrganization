@@ -5,7 +5,7 @@ namespace Application.Interfaces.IRepositories
 {
     public interface ICompanyQuery
     {
-        public IList<Company> GetCompanys();
-        public Company? GetCompany(int companyId);
+        Task<IList<Company>> GetCompanys();
+        Task<Company>? GetCompany(int companyId);
     }
 }
