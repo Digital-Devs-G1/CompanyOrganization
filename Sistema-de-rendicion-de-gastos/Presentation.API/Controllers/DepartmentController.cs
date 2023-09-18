@@ -17,7 +17,7 @@ namespace Presentation.API.Controllers
 
         [HttpGet]
         [Route("GetDepartment/{id}")]
-        public async Task<IActionResult> GetCompany(int id)
+        public async Task<IActionResult> GetDepartment(int id)
         {
             var traking = await _departmentService.GetDepartment(id);
             return Ok(traking);
@@ -32,7 +32,7 @@ namespace Presentation.API.Controllers
         }
 
         [HttpPost]
-        [Route("PostDepartments/")]
+        [Route("CreateDepartment/")]
         public async Task<IActionResult> CreateDepartment(DepartmentRequest request)
         {
             var traking = await _departmentService.CreateDepartment(request);

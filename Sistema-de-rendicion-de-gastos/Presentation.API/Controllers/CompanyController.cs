@@ -34,8 +34,8 @@ namespace Presentation.API.Controllers
         }
 
         [HttpPost]
-        [Route("PostDepartments/")]
-        public async Task<IActionResult> CreateDepartment(CompanyRequest request)
+        [Route("CreateCompany/")]
+        public async Task<IActionResult> CreateCompany(CompanyRequest request)
         {
             var traking = await _companyService.CreateCompany(request);
             return Ok(traking);
