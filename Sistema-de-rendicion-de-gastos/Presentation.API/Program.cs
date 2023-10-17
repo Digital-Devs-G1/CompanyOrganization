@@ -51,14 +51,14 @@ namespace Presentation.API
                 });
             });
 
-            builder.Services.AddSingleton<ReportsDbContext>();
-            builder.Services.AddTransient<ICompanyQuery, CompanyQuery>();
-            builder.Services.AddTransient<ICompanyService, CompanyService>();
-            builder.Services.AddSingleton<IDepartmentQuery, DepartmentQuery>();
-            builder.Services.AddSingleton<IDepartmentService, DepartmentService>();
-            builder.Services.AddSingleton<IDepartmentCommand, DepartmentCommand>();
-            builder.Services.AddSingleton<ICompanyCommand, CompanyCommand>();
-
+            builder.Services.AddScoped<ReportsDbContext>();
+            builder.Services.AddScoped<IDepartmentQuery, DepartmentQuery>();
+            builder.Services.AddScoped<ICompanyQuery, CompanyQuery>();
+            builder.Services.AddScoped<ICompanyService, CompanyService>();
+            builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+            builder.Services.AddScoped<IDepartmentCommand, DepartmentCommand>();
+            builder.Services.AddScoped<ICompanyCommand, CompanyCommand>();
 
             // config token
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
