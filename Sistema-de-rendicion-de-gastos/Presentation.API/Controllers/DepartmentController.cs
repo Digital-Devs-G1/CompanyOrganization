@@ -1,12 +1,13 @@
 ﻿using Application.DTO.Request;
 using Application.Interfaces.IServices;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.API.Handlers;
 
 namespace Presentation.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [TypeFilter(typeof(ExceptionFilter))]
     public class DepartmentController : ControllerBase
     {
         private readonly IDepartmentService _departmentService;

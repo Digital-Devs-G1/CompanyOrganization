@@ -1,13 +1,13 @@
-
-using Application.DTO.Response;
 using Application.Interfaces.IRepositories;
 using Application.Interfaces.IServices;
 using Application.UseCases;
-//using Application.UseCases;
 using Infrastructure.Persistence;
 using Infrastructure.Repositories.Commands;
 using Infrastructure.Repositories.Querys;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
 
 namespace Presentation.API
 {
@@ -22,7 +22,34 @@ namespace Presentation.API
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+
+                    }
+                });
+            });
 
             builder.Services.AddSingleton<ReportsDbContext>();
             builder.Services.AddTransient<ICompanyQuery, CompanyQuery>();
@@ -31,6 +58,34 @@ namespace Presentation.API
             builder.Services.AddSingleton<IDepartmentService, DepartmentService>();
             builder.Services.AddSingleton<IDepartmentCommand, DepartmentCommand>();
             builder.Services.AddSingleton<ICompanyCommand, CompanyCommand>();
+
+
+            // config token
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+                    ValidIssuer = builder.Configuration["JWT:Issuer"],
+                    ValidAudience = builder.Configuration["JWT:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
+                };
+            });
+
+
+            builder.Services.AddCors(Options =>
+            {
+                Options.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+
+                });
+            });
 
             var app = builder.Build();
 
@@ -43,47 +98,15 @@ namespace Presentation.API
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseCors("CorsPolicy");
 
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapControllers();
 
             app.Run();
 
-            //Run(app.Services);
-
-        }
-
-        public static void Run(IServiceProvider services)
-        {
-            while (true)
-            {
-                //var service = services.GetService<IVariableFieldService>();
-                //Console.Write("Ingrese el numero de template: ");
-                //int i = int.Parse(Console.ReadLine());
-                //IList<VariableFieldResponse> fields = service.GetTemplate(i);
-                //Console.WriteLine("\nRendicion de gatos:\n-------------------\n");
-                //foreach (VariableFieldResponse field in fields)
-                //{
-                //    Console.Write(field.Label + ": ");
-                //    Console.ReadLine();
-                //}
-                //Console.WriteLine("\nSu Reporte se ingreso con exito\n");
-
-                ////Instanciar un DbContext
-                //var db = new ReportsDbContext();
-                ////Instanciar command usando el DbContext
-                //var query = new DepartmentQuery(db);
-                //var command = new DepartmentCommand(db);
-                ////Llamar al metodo implementado
-                ////Console.WriteLine(command.PostDepartment());
-                ////Instanciar el servicio inyectando el command
-                ////llamar al metodo postDepartment
-                //var service = new DepartmentService(query,command);
-                //Console.WriteLine(service.PostDepartment());
-                //Console.ReadLine();
-
-            }
         }
     }
 }

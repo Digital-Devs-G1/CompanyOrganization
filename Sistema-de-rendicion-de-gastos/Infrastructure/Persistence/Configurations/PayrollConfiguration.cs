@@ -1,11 +1,6 @@
 ﻿using Domain.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Persistence.Configurations
 {
@@ -14,6 +9,8 @@ namespace Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Payroll> builder)
         {
             builder.HasKey(e => e.PayrollId);
+            builder.Property(e => e.PayrollId)
+                    .ValueGeneratedOnAdd();
 
             builder.HasOne(c => c.CompanyNav)
                    .WithMany()

@@ -10,6 +10,8 @@ namespace Infrastructure.Persistence
         public DbSet<Company> Companys { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Payroll> Payrolls { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Position> Positions { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=localhost;Database=RendicionGastos;User Id=rootPS;Password=123456;Integrated Security=True;TrustServerCertificate=True");

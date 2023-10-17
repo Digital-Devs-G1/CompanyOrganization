@@ -2,7 +2,6 @@
 using Domain.Entities;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.Design;
 
 namespace Infrastructure.Repositories.Querys
 {
@@ -14,12 +13,10 @@ namespace Infrastructure.Repositories.Querys
         {
             _dbContext = dbContext;
         }
-        public async Task<Department>? GetDepartment(int departmentId)
+
+        public async Task<Department> GetDepartment(int departmentId)
         {
-            var list = await _dbContext.Set<Department>().Where(x => x.DepartmentId == departmentId).ToListAsync();
-            if (list.Count > 0)
-                return list[0];
-            return null;
+            return await _dbContext.Departments.FirstOrDefaultAsync(d => d.DepartmentId == departmentId);
         }
 
         public async Task<IList<Department>> GetDepartments()

@@ -1,6 +1,7 @@
 ﻿using Application.DTO.Creator;
 using Application.DTO.Request;
 using Application.DTO.Response;
+using Application.Exceptions;
 using Application.Interfaces.IRepositories;
 using Application.Interfaces.IServices;
 using Domain.Entities;
@@ -9,13 +10,13 @@ namespace Application.UseCases
 {
     public class CompanyService : ICompanyService
     {
-        private ICompanyQuery _repository;
-        private CompanyCreator _creator;
-        private ICompanyCommand _command;
+        private readonly ICompanyQuery _query;
+        private readonly CompanyCreator _creator;
+        private readonly ICompanyCommand _command;
 
         public CompanyService(ICompanyQuery repository, ICompanyCommand command)
         {
-            _repository = repository;
+            _query = repository;
             _creator = new CompanyCreator();
             _command = command;
         }
@@ -23,20 +24,26 @@ namespace Application.UseCases
         public async Task<IList<CompanyResponse>> GetCompanys()
         {
             IList<CompanyResponse> list = new List<CompanyResponse>();
-            IList<Company> entities = await _repository.GetCompanys();
+            IList<Company> entities = await _query.GetCompanys();
+
             foreach (Company entity in entities)
             {
                 list.Add(_creator.Create(entity));
             }
+
             return list;
         }
+        
         public async Task<CompanyResponse>? GetCompany(int companyId)
         {
-            Company? entity = await _repository.GetCompany(companyId);
-            if(entity != null)
-               return _creator.Create(entity);
-            return null;            
+            Company entity = await _query.GetCompany(companyId);
+
+            if(entity == null)
+                throw new NotFoundException("el id no corresponde a una compania.");
+
+            return _creator.Create(entity);           
         }
+
         public async Task<Company> CreateCompany(CompanyRequest request)
         {
             var company = new Company
@@ -46,7 +53,9 @@ namespace Application.UseCases
                 Adress = request.Adress,
                 Phone = request.Phone
             };
+
             await _command.InsertCompany(company);
+
             return company;
         }
 
