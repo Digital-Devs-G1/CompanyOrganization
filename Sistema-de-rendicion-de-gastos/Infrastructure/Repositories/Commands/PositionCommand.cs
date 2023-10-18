@@ -1,21 +1,19 @@
 ﻿using Application.Interfaces.IRepositories;
 using Domain.Entities;
 using Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.Design;
 
 namespace Infrastructure.Repositories.Commands
 {
-    public class CompanyCommand : ICompanyCommand
+    public class PositionCommand : IPositionCommand
     {
         private readonly ReportsDbContext _dbContext;
-        public CompanyCommand(ReportsDbContext dbContext)
+        public PositionCommand(ReportsDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-        public async Task InsertCompany(Company company)
+        public async Task InsertPosition(Position position)
         {
-            _dbContext.Add(company);
+            _dbContext.Add(position);
             await _dbContext.SaveChangesAsync();
         }
     }

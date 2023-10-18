@@ -33,9 +33,9 @@ namespace Application.UseCases
         public async Task<CompanyResponse>? GetCompany(int companyId)
         {
             Company? entity = await _repository.GetCompany(companyId);
-            if(entity != null)
-               return _creator.Create(entity);
-            return null;            
+            if (entity != null)
+                return _creator.Create(entity);
+            return null;
         }
         public async Task<Company> CreateCompany(CompanyRequest request)
         {
@@ -49,6 +49,5 @@ namespace Application.UseCases
             await _command.InsertCompany(company);
             return company;
         }
-
     }
 }

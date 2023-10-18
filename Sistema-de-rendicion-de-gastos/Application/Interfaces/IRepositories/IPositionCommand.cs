@@ -3,8 +3,8 @@ using Domain.Entities;
 
 namespace Application.Interfaces.IRepositories
 {
-    public interface ICompanyCommand
+    public interface IPositionCommand
     {
-        Task InsertCompany(Company company);
+        Task InsertPosition(Position position);
     }
 }

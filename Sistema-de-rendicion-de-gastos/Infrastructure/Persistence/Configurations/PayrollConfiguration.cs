@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Infrastructure.Persistence.Configurations
 {
@@ -23,7 +24,17 @@ namespace Infrastructure.Persistence.Configurations
                    .WithMany()
                    .HasForeignKey(d => d.DepartmentId);
 
-        }
+            builder.HasOne(d => d.DepartmentNav)
+                   .WithMany()
+                   .HasForeignKey(d => d.DepartmentId);
 
+            builder.HasOne(x => x.PositionNav)
+                   .WithMany()
+            .HasForeignKey(x => x.PositionId);
+
+            builder.HasOne(x => x.EmployeeNav)
+                   .WithMany()
+                   .HasForeignKey(x => x.EmployeeId);
+        }
     }
 }

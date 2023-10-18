@@ -15,7 +15,7 @@ namespace Application.DTO.Creator
             return new DepartmentResponse()
             {
                 DepartmentId = department.DepartmentId,
-                Name = department.Name,
+                Name = department.Name
             };
         }
     }

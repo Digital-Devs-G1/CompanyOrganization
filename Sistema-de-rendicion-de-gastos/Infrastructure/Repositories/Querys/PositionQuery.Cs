@@ -2,30 +2,30 @@
 using Domain.Entities;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.Design;
 
 namespace Infrastructure.Repositories.Querys
 {
-    public class CompanyQuery : ICompanyQuery
+    public class PositionQuery : IPositionQuery
     {
         private readonly ReportsDbContext _dbContext;
 
-        public CompanyQuery(ReportsDbContext dbContext)
+
+        public PositionQuery(ReportsDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-
-        public async Task<Company>? GetCompany(int companyId)
+        public async Task<Position>? GetPosition(int positionId)
         {
-            var list = await _dbContext.Set<Company>().Where(x => x.CompanyId == companyId).ToListAsync();
+            var list = await _dbContext.Set<Position>().Where(x => x.PositionId == positionId).ToListAsync();
             if (list.Count > 0)
                 return list[0];
             return null;
         }
 
-        public async Task<IList<Company>> GetCompanys()
+        public async Task<IList<Position>> GetPositions()
         {
-            return await _dbContext.Set<Company>().ToListAsync();
+            return await _dbContext.Set<Position>().ToListAsync();
         }
     }
 }
+

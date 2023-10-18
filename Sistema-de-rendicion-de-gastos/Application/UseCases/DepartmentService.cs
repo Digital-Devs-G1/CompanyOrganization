@@ -5,11 +5,10 @@ using Application.Interfaces.IRepositories;
 using Application.Interfaces.IServices;
 using Domain.Entities;
 using System.ComponentModel.Design;
-using System.Net.Http.Headers;
 
 namespace Application.UseCases
 {
-    public class  DepartmentService : IDepartmentService
+    public class DepartmentService : IDepartmentService
     {
         private IDepartmentQuery _repository;
         private IDepartmentCommand _command;
@@ -43,11 +42,11 @@ namespace Application.UseCases
         public async Task<Department> CreateDepartment(DepartmentRequest request)
         {
             var department = new Department
-            { 
-                Name= request.Name
+            {
+                Name = request.Name
             };
-           await _command.InsertDepartment(department);
-           return department;
+            await _command.InsertDepartment(department);
+            return department;
         }
     }
 }

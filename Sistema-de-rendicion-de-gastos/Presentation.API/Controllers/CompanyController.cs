@@ -10,32 +10,32 @@ namespace Presentation.API.Controllers
     [ApiController]
     public class CompanyController : ControllerBase
     {
-        private readonly ICompanyService _companyService;
+        private ICompanyService _companyService;
+
         public CompanyController(ICompanyService companyService)
         {
             _companyService = companyService;
-
         }
 
         [HttpGet]
         [Route("GetCompany/{id}")]
-        public async Task<IActionResult> GetCompany(int id)
+        public IActionResult GetCompany(int id)
         {
-            var traking = await _companyService.GetCompany(id);
+            var traking =  _companyService.GetCompany(id);
             return Ok(traking);
         }
 
         [HttpGet]
         [Route("GetCompanys/")]
-        public async Task<IActionResult> GetCompanys()
+        public IActionResult GetCompanys()
         {
-            var traking = await _companyService.GetCompanys();
+            var traking = _companyService.GetCompanys();
             return Ok(traking);
         }
-
+        
         [HttpPost]
-        [Route("PostDepartments/")]
-        public async Task<IActionResult> CreateDepartment(CompanyRequest request)
+        [Route("PostCompanys/")]
+        public async Task<IActionResult> CreateCompany(CompanyRequest request)
         {
             var traking = await _companyService.CreateCompany(request);
             return Ok(traking);
