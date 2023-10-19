@@ -10,9 +10,6 @@ namespace Infrastructure.Persistence.Configurations
         {
             builder.HasKey(e => e.Id);
 
-            builder.Property(e => e.Id)
-                .ValueGeneratedOnAdd();
-
             builder.Property(e => e.FirstName)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -21,13 +18,25 @@ namespace Infrastructure.Persistence.Configurations
                 .IsRequired()
                 .HasMaxLength(50);
 
-            builder.Property(e => e.UserId)
-                .IsRequired();
-
             builder.Property(e => e.SuperiorId)
                     .IsRequired(false);
 
+            builder.HasOne<Employee>(u => u.Superior)
+                    .WithMany(u => u.Subordinates)
+                    .HasForeignKey(u => u.SuperiorId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+
+            builder.HasOne<Position>(u => u.Position)
+                    .WithMany(u => u.Employees)
+                    .HasForeignKey(u => u.PositionId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne<Department>(u => u.Departament)
+                    .WithMany(u => u.Employees)
+                    .HasForeignKey(u => u.DepartamentId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
         }
-    }
     }
 }

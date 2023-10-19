@@ -9,7 +9,6 @@ namespace Infrastructure.Persistence
     {
         public DbSet<Company> Companys { get; set; }
         public DbSet<Department> Departments { get; set; }
-        public DbSet<Payroll> Payrolls { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Position> Positions { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -21,7 +20,8 @@ namespace Infrastructure.Persistence
         {
             modelBuilder.ApplyConfiguration(new CompanyConfiguration());
             modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
-            modelBuilder.ApplyConfiguration(new PayrollConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
+            modelBuilder.ApplyConfiguration(new PositionConfiguration());
             modelBuilder.ApplyConfiguration(new CompanyInserts());
             modelBuilder.ApplyConfiguration(new DepartmentInserts());
         }

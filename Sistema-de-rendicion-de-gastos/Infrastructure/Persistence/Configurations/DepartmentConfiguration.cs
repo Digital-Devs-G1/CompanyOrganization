@@ -8,14 +8,16 @@ namespace Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Department> builder)
         {
-            builder.HasKey(e => e.DepartmentId);
+            builder.HasKey(e => e.Id);
 
             builder.Property(e => e.Name)
                 .IsRequired()
-                .HasMaxLength(30);
+                .HasMaxLength(50);
+
+            builder.HasOne<Company>(u => u.Company)
+                    .WithMany(r => r.Departments)
+                    .HasForeignKey(u => u.IdCompany);
 
         }
-
     }
-
 }

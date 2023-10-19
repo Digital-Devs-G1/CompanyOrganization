@@ -1,5 +1,6 @@
 ﻿using Application.DTO.Request;
 using Application.Interfaces.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.API.Handlers;
 
@@ -38,6 +39,16 @@ namespace Presentation.API.Controllers
         {
             var traking = await _departmentService.CreateDepartment(request);
             return Ok(traking);
+        }
+
+
+        [HttpGet]
+        [Route("GetDepartmentByEmployee/")]
+        [Authorize]
+        public async Task<IActionResult> GetDepartmentByEmployee()
+        {
+            //var result = await _departmentService.GetDepartmentByEmployee(id);
+            return Ok();
         }
     }
 }

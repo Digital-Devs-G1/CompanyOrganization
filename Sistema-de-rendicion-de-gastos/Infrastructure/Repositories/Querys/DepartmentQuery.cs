@@ -16,7 +16,7 @@ namespace Infrastructure.Repositories.Querys
 
         public async Task<Department> GetDepartment(int departmentId)
         {
-            return await _dbContext.Departments.FirstOrDefaultAsync(d => d.DepartmentId == departmentId);
+            return await _dbContext.Departments.FirstOrDefaultAsync(d => d.Id == departmentId);
         }
 
         public async Task<IList<Department>> GetDepartments()

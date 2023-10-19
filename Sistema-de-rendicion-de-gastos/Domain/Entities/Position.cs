@@ -6,5 +6,10 @@
         public string Name { get; set; }
         public string Hierarchy { get; set; }
         public decimal MaxAmount { get; set; }
+        public int IdCompany { get; set; }
+        public Company Company { get; set; }
+
+        public IEnumerable<Employee> Employees { get; set; }
     }
 }
+

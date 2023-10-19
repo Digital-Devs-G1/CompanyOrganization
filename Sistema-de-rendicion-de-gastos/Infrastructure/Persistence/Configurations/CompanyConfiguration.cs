@@ -24,9 +24,8 @@ namespace Infrastructure.Persistence.Configurations
 
             builder.Property(e => e.Phone)
                 .IsRequired()
-                .HasMaxLength(13);
+            .HasMaxLength(13);
+
         }
-
     }
-
 }

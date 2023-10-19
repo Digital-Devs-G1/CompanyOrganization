@@ -1,11 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Inserts
 {
@@ -15,28 +10,33 @@ namespace Infrastructure.Persistence.Inserts
         {
             builder.HasData(new Department()
             {
-                DepartmentId = 1,
+                Id = 1,
                 Name = "Recursos Humanos",
+                IdCompany = 1
             },
             new Department()
             {
-                DepartmentId = 2,
+                Id = 2,
                 Name = "Marketing",
+                IdCompany = 1
             },
             new Department()
             {
-                DepartmentId = 3,
+                Id = 3,
                 Name = "Comercial",
+                IdCompany = 1
             },
             new Department()
             {
-                DepartmentId = 4,
+                Id = 4,
                 Name = "Control de Gestión",
+                IdCompany = 2
             },
             new Department()
             {
-                DepartmentId = 5,
+                Id = 5,
                 Name = "Logística y Operaciones",
+                IdCompany = 2
             });
         }
     }

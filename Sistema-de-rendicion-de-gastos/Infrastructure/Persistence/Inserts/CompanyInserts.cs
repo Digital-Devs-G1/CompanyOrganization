@@ -1,11 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Inserts
 {
@@ -28,30 +23,6 @@ namespace Infrastructure.Persistence.Inserts
                 Name = "Remax",
                 Adress = "Av. Rivadavia 430",
                 Phone = "4253-4987"
-            },
-            new Company()
-            {
-                CompanyId = 3,
-                Cuit = "30-67940701-1",
-                Name = "Papelera el Vasquito",
-                Adress = "Av. La Plata 1932",
-                Phone = "4280-5775"
-            },
-            new Company()
-            {
-                CompanyId = 4,
-                Cuit = "30-56102989-6",
-                Name = "Simonetti Constructora",
-                Adress = "Almte. Brown 281",
-                Phone = "4224-0363"
-            },
-            new Company()
-            {
-                CompanyId = 5,
-                Cuit = "30-51199267-9",
-                Name = "El bosque",
-                Adress = "Av. La Plata 3401",
-                Phone = "7539-8916"
             });
         }
     }
