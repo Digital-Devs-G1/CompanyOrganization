@@ -9,19 +9,29 @@ namespace Infrastructure.Persistence
     {
         public DbSet<Company> Companys { get; set; }
         public DbSet<Department> Departments { get; set; }
-        public DbSet<Payroll> Payrolls { get; set; }
+
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Position> Positions { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=localhost;Database=RendicionGastos;User Id=rootPS;Password=123456;Integrated Security=True;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer(@"Server=localhost;Database=RendicionGastos;User Id=consulta;Password=consulta;Integrated Security=True;TrustServerCertificate=True");
+            //optionsBuilder.UseSqlServer("Server=localhost;Database=RendicionGastos;User Id=rootPS;Password=123456;Integrated Security=True;TrustServerCertificate=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CompanyConfiguration());
             modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
-            modelBuilder.ApplyConfiguration(new PayrollConfiguration());
-            modelBuilder.ApplyConfiguration(new CompanyInserts());
+            modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
+            modelBuilder.ApplyConfiguration(new PositionConfiguration());
+
+          
+            //modelBuilder.ApplyConfiguration(new PositionInserts());
+            //modelBuilder.ApplyConfiguration(new EmployeeInserts());
             modelBuilder.ApplyConfiguration(new DepartmentInserts());
+            modelBuilder.ApplyConfiguration(new CompanyInserts());
+            //modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
         }
     }
 }

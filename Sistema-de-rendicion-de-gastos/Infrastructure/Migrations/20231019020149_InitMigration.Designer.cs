@@ -4,6 +4,7 @@ using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ReportsDbContext))]
-    partial class ReportsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231019020149_InitMigration")]
+    partial class InitMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -194,157 +197,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("IdCompany");
 
                     b.ToTable("Positions");
-
-                    b.HasData(
-                        new
-                        {
-                            PayrollId = 1,
-                            CompanyId = 1,
-                            DepartmentId = 1,
-                            EmployeeId = 1,
-                            PositionId = 1
-                        },
-                        new
-                        {
-                            PayrollId = 2,
-                            CompanyId = 1,
-                            DepartmentId = 2,
-                            EmployeeId = 2,
-                            PositionId = 2
-                        },
-                        new
-                        {
-                            PayrollId = 3,
-                            CompanyId = 1,
-                            DepartmentId = 1,
-                            EmployeeId = 3,
-                            PositionId = 3
-                        },
-                        new
-                        {
-                            PayrollId = 4,
-                            CompanyId = 1,
-                            DepartmentId = 2,
-                            EmployeeId = 4,
-                            PositionId = 3
-                        },
-                        new
-                        {
-                            PayrollId = 5,
-                            CompanyId = 1,
-                            DepartmentId = 1,
-                            EmployeeId = 5,
-                            PositionId = 4
-                        },
-                        new
-                        {
-                            PayrollId = 6,
-                            CompanyId = 2,
-                            DepartmentId = 2,
-                            EmployeeId = 6,
-                            PositionId = 4
-                        },
-                        new
-                        {
-                            PayrollId = 7,
-                            CompanyId = 1,
-                            DepartmentId = 1,
-                            EmployeeId = 7,
-                            PositionId = 4
-                        },
-                        new
-                        {
-                            PayrollId = 8,
-                            CompanyId = 1,
-                            DepartmentId = 1,
-                            EmployeeId = 8,
-                            PositionId = 5
-                        },
-                        new
-                        {
-                            PayrollId = 9,
-                            CompanyId = 1,
-                            DepartmentId = 1,
-                            EmployeeId = 9,
-                            PositionId = 5
-                        },
-                        new
-                        {
-                            PayrollId = 10,
-                            CompanyId = 1,
-                            DepartmentId = 2,
-                            EmployeeId = 10,
-                            PositionId = 5
-                        },
-                        new
-                        {
-                            PayrollId = 11,
-                            CompanyId = 2,
-                            DepartmentId = 1,
-                            EmployeeId = 11,
-                            PositionId = 5
-                        });
-                });
-
-            modelBuilder.Entity("Domain.Entities.Position", b =>
-                {
-                    b.Property<int>("PositionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PositionId"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<int>("Hierarchy")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaxMonthlyAmount")
-                        .HasColumnType("int");
-
-                    b.HasKey("PositionId");
-
-                    b.ToTable("Position");
-
-                    b.HasData(
-                        new
-                        {
-                            PositionId = 1,
-                            Description = "Socio",
-                            Hierarchy = 1,
-                            MaxMonthlyAmount = 500000
-                        },
-                        new
-                        {
-                            PositionId = 2,
-                            Description = "Director",
-                            Hierarchy = 10,
-                            MaxMonthlyAmount = 50000
-                        },
-                        new
-                        {
-                            PositionId = 3,
-                            Description = "Gerente",
-                            Hierarchy = 20,
-                            MaxMonthlyAmount = 10000
-                        },
-                        new
-                        {
-                            PositionId = 4,
-                            Description = "Supervisor",
-                            Hierarchy = 30,
-                            MaxMonthlyAmount = 1000
-                        },
-                        new
-                        {
-                            PositionId = 5,
-                            Description = "Lider",
-                            Hierarchy = 40,
-                            MaxMonthlyAmount = 100
-                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Department", b =>

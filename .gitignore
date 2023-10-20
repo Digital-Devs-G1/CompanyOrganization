@@ -475,3 +475,4 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+/Sistema-de-rendicion-de-gastos/Application/UseCases/PayrollService.cs

@@ -4,20 +4,17 @@ using Infrastructure.Persistence;
 
 namespace Infrastructure.Repositories.Commands
 {
-    public class DepartmentCommand : IDepartmentCommand
+    public class PositionCommand : IPositionCommand
     {
         private readonly ReportsDbContext _dbContext;
-
-        public DepartmentCommand(ReportsDbContext dbContext)
+        public PositionCommand(ReportsDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-
-        public async Task InsertDepartment(Department department)
+        public async Task InsertPosition(Position position)
         {
-            _dbContext.Add(department);
+            _dbContext.Add(position);
             await _dbContext.SaveChangesAsync();
         }
-
     }
 }
