@@ -8,42 +8,23 @@ namespace Infrastructure.Persistence.Inserts
     {
         public void Configure(EntityTypeBuilder<Position> builder)
         {
-            //builder.HasData(
-            //       new Position()
-            //       {
-            //           PositionId = 1,
-            //           Description = "Socio",
-            //           Hierarchy = 1,
-            //           MaxMonthlyAmount = 500000
-            //       },
-            //       new Position
-            //       {
-            //           PositionId = 2,
-            //           Description = "Director",
-            //           Hierarchy = 10,
-            //           MaxMonthlyAmount = 50000
-            //       },
-            //       new Position()
-            //       {
-            //           PositionId = 3,
-            //           Description = "Gerente",
-            //           Hierarchy = 20,
-            //           MaxMonthlyAmount = 10000
-            //       },
-            //       new Position()
-            //       {
-            //           PositionId = 4,
-            //           Description = "Supervisor",
-            //           Hierarchy = 30,
-            //           MaxMonthlyAmount = 1000
-            //       },
-            //       new Position()
-            //       {
-            //           PositionId = 5,
-            //           Description = "Lider",
-            //           Hierarchy = 40,
-            //           MaxMonthlyAmount = 100
-            //       });
+            builder.HasData(
+                   new Position()
+                   {
+                       Id = 1,
+                       Name = "Socio",
+                       Hierarchy = 1,
+                       MaxAmount = 500000,
+                       IdCompany = 1,
+                   },
+                   new Position()
+                   {
+                       Id = 2,
+                       Name = "Director",
+                       Hierarchy = 10,
+                       MaxAmount = 5000,
+                       IdCompany = 1,
+                   });
         }
     }
 }

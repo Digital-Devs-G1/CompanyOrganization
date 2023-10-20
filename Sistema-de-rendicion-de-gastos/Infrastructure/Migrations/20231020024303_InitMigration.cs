@@ -55,7 +55,7 @@ namespace Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Hierarchy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Hierarchy = table.Column<int>(type: "int", nullable: false),
                     MaxAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IdCompany = table.Column<int>(type: "int", nullable: false)
                 },
@@ -125,6 +125,20 @@ namespace Infrastructure.Migrations
                     { 4, 2, "Control de Gestión" },
                     { 5, 2, "Logística y Operaciones" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Positions",
+                columns: new[] { "Id", "Hierarchy", "IdCompany", "MaxAmount", "Name" },
+                values: new object[,]
+                {
+                    { 1, 1, 1, 500000m, "Socio" },
+                    { 2, 10, 1, 5000m, "Director" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Employees",
+                columns: new[] { "Id", "DepartamentId", "FirstName", "LastName", "PositionId", "SuperiorId" },
+                values: new object[] { 1, 1, "leo", "messi", 1, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Departments_IdCompany",
