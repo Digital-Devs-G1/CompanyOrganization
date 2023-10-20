@@ -7,6 +7,6 @@ namespace Application.Interfaces.IRepositories
     {
         Task<IList<Department>> GetDepartments();
         Task<Department>? GetDepartment(int departmentId);
-        
+
     }
 }

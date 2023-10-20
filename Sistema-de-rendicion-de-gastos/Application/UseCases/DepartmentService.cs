@@ -8,7 +8,7 @@ using Domain.Entities;
 
 namespace Application.UseCases
 {
-    public class  DepartmentService : IDepartmentService
+    public class DepartmentService : IDepartmentService
     {
         private readonly IDepartmentQuery _query;
         private readonly IDepartmentCommand _command;
@@ -48,12 +48,10 @@ namespace Application.UseCases
         {
 
             var department = new Department
-            { 
-                Name= request.Name
+            {
+                Name = request.Name
             };
-
            await _command.InsertDepartment(department);
-
            return department;
         }
     }

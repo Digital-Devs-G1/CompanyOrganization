@@ -7,7 +7,7 @@ namespace Application.Interfaces.IServices
     public interface IDepartmentService
     {
         Task<IList<DepartmentResponse>> GetDepartments();
-        Task<DepartmentResponse>? GetDepartment(int departmentId); 
+        Task<DepartmentResponse>? GetDepartment(int departmentId);
         Task<Department> CreateDepartment(DepartmentRequest request);
     }
 }

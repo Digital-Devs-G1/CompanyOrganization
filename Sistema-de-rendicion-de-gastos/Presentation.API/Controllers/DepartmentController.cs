@@ -11,7 +11,8 @@ namespace Presentation.API.Controllers
     [TypeFilter(typeof(ExceptionFilter))]
     public class DepartmentController : ControllerBase
     {
-        private readonly IDepartmentService _departmentService;
+        private IDepartmentService _departmentService;
+
         public DepartmentController(IDepartmentService departmentService)
         {
             _departmentService = departmentService;
@@ -19,20 +20,20 @@ namespace Presentation.API.Controllers
 
         [HttpGet]
         [Route("GetDepartment/{id}")]
-        public async Task<IActionResult> GetCompany(int id)
+        public IActionResult GetCompany(int id)
         {
-            var traking = await _departmentService.GetDepartment(id);
+            var traking = _departmentService.GetDepartment(id);
             return Ok(traking);
         }
 
         [HttpGet]
         [Route("GetDepartments/")]
-        public async Task<IActionResult> GetDepartments()
+        public IActionResult GetDepartments()
         {
-            var traking = await _departmentService.GetDepartments();
+            var traking = _departmentService.GetDepartments();
             return Ok(traking);
         }
-
+        
         [HttpPost]
         [Route("PostDepartments/")]
         public async Task<IActionResult> CreateDepartment(DepartmentRequest request)

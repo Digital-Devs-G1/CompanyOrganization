@@ -1,4 +1,6 @@
-﻿using Application.Interfaces.IServices;
+﻿using Application.DTO.Request;
+using Application.Interfaces.IServices;
+using Application.UseCases;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.API.Controllers
@@ -14,12 +16,30 @@ namespace Presentation.API.Controllers
             this._employeeService = employeeService;
         }
 
-
-        [HttpPost]
-        [Route("Insert")]
-        public async Task<IActionResult> CreateEmployee()
+        [HttpGet]
+        [Route("GetIdEmployee/")]
+        public IActionResult GetCompany(int id)
         {
-            return Ok();
+            var traking = _employeeService.GetEmployee(id);
+            return Ok(traking);
         }
+
+        [HttpGet]
+        [Route("GetAllEmployee/")]
+        public IActionResult GetEmployee()
+        {
+            var traking = _employeeService.GetEmployees();
+            return Ok(traking);
+        }
+        [HttpPost]
+        [Route("PostEmployee/")]
+        public async Task<IActionResult> CreateEmployee(EmployeeRequest request)
+        {
+            var traking = await _employeeService.CreateEmployee(request);
+            return Ok(traking);
+        }
+
     }
 }
+
+

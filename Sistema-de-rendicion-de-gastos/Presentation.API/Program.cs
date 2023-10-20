@@ -93,15 +93,22 @@ namespace Presentation.API
                 });
             });
 
-            var app = builder.Build();
+            builder.Services.AddScoped<IEmployeeQuery, EmployeeQuery>();
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+            builder.Services.AddScoped<IPositionQuery, PositionQuery>();
+            builder.Services.AddScoped<IPositionService, PositionService>();
+       
 
-            // Configure the HTTP request pipeline.
+            builder.Services.AddScoped<IEmployeeCommand, EmployeeCommand>();
+            builder.Services.AddScoped<IPositionCommand, PositionCommand>();
+         
+
+            var app = builder.Build();
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
             app.UseHttpsRedirection();
 
             app.UseCors("CorsPolicy");
@@ -110,7 +117,6 @@ namespace Presentation.API
             app.UseAuthorization();
 
             app.MapControllers();
-
             app.Run();
 
         }

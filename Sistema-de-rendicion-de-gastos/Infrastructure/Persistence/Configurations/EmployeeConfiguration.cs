@@ -37,6 +37,8 @@ namespace Infrastructure.Persistence.Configurations
                     .HasForeignKey(u => u.DepartamentId)
                     .OnDelete(DeleteBehavior.Restrict);
 
+           
         }
     }
 }
+

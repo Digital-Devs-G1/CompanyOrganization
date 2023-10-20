@@ -58,6 +58,5 @@ namespace Application.UseCases
 
             return company;
         }
-
     }
 }
