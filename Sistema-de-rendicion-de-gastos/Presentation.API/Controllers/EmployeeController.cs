@@ -1,6 +1,11 @@
 ﻿using Application.DTO.Request;
+using Application.DTO.Response;
 using Application.Interfaces.IServices;
 using Application.UseCases;
+using Domain.Entities;
+using Infrastructure.Authentication;
+using Infrastructure.Authentication.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.API.Controllers
@@ -37,6 +42,20 @@ namespace Presentation.API.Controllers
         {
             var traking = await _employeeService.CreateEmployee(request);
             return Ok(traking);
+        }
+
+
+        [HttpGet]
+        [Route("GetDepartmentByEmployee/")]
+        [Authorize]
+        public async Task<IActionResult> GetDepartmentByEmployee()
+        {
+            // metodo para obtener el id  del token
+            string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
+
+            DepartmentResponse result = await _employeeService.GetDepartmentByIdUser(Convert.ToInt32(idUser));
+
+            return Ok(result);
         }
 
     }

@@ -5,7 +5,7 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Hierarchy { get; set; }
+        public int Hierarchy { get; set; }
         public decimal MaxAmount { get; set; }
         public int IdCompany { get; set; }
         public Company Company { get; set; }

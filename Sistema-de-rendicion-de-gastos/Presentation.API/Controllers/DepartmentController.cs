@@ -42,14 +42,5 @@ namespace Presentation.API.Controllers
             return Ok(traking);
         }
 
-
-        [HttpGet]
-        [Route("GetDepartmentByEmployee/")]
-        [Authorize]
-        public async Task<IActionResult> GetDepartmentByEmployee()
-        {
-            //var result = await _departmentService.GetDepartmentByEmployee(id);
-            return Ok();
-        }
     }
 }

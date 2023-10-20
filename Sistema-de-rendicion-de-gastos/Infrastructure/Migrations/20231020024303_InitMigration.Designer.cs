@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ReportsDbContext))]
-    [Migration("20231019020149_InitMigration")]
+    [Migration("20231020024303_InitMigration")]
     partial class InitMigration
     {
         /// <inheritdoc />
@@ -167,6 +167,16 @@ namespace Infrastructure.Migrations
                     b.HasIndex("SuperiorId");
 
                     b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DepartamentId = 1,
+                            FirstName = "leo",
+                            LastName = "messi",
+                            PositionId = 1
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Position", b =>
@@ -177,9 +187,8 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Hierarchy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Hierarchy")
+                        .HasColumnType("int");
 
                     b.Property<int>("IdCompany")
                         .HasColumnType("int");
@@ -197,6 +206,24 @@ namespace Infrastructure.Migrations
                     b.HasIndex("IdCompany");
 
                     b.ToTable("Positions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Hierarchy = 1,
+                            IdCompany = 1,
+                            MaxAmount = 500000m,
+                            Name = "Socio"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Hierarchy = 10,
+                            IdCompany = 1,
+                            MaxAmount = 5000m,
+                            Name = "Director"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Department", b =>
