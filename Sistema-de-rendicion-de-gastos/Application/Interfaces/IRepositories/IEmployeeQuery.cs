@@ -6,6 +6,8 @@ namespace Application.Interfaces.IRepositories
     public interface IEmployeeQuery
     {
         Task<IList<Employee>> GetEmployees();
-        Task<Employee>? GetEmployee(int employeeId);
+        Task<Employee> GetEmployee(int employeeId);
+
+        Task<Department> GetDepartmentByIdUser(int IdUser);
     }
 }

@@ -13,6 +13,15 @@ namespace Infrastructure.Repositories.Querys
         {
             _dbContext = dbContext;
         }
+
+        public async Task<Department> GetDepartmentByIdUser(int IdUser)
+        {
+            return  await _dbContext.Employees
+                            .Where(e => e.Id == IdUser)
+                            .Select(e => e.Departament)
+                            .FirstOrDefaultAsync();
+        }
+
         public async Task<Employee> GetEmployee(int employeeId)
         {
             return await _dbContext.Employees.FirstOrDefaultAsync(x => x.Id == employeeId);

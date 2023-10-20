@@ -31,9 +31,9 @@ namespace Application.UseCases
             }
             return list;
         }
-        public async Task<EmployeeResponse>? GetEmployee(int employeeId)
+        public async Task<EmployeeResponse> GetEmployee(int employeeId)
         {
-            Employee? entity = await _repository.GetEmployee(employeeId);
+            Employee entity = await _repository.GetEmployee(employeeId);
             if (entity != null)
                 return _creator.Create(entity);
             return null;
@@ -53,6 +53,19 @@ namespace Application.UseCases
             //};
             //await _command.InsertEmployee(employee);
             return new Employee();
+        }
+
+        public async Task<DepartmentResponse> GetDepartmentByIdUser(int idUser)
+        {
+            Department entity = await _repository.GetDepartmentByIdUser(idUser);
+
+            DepartmentResponse response = new DepartmentResponse()
+            {
+                DepartmentId = entity.Id,
+                Name = entity.Name
+            };
+
+            return response;
         }
     }
 }
