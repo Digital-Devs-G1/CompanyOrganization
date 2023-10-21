@@ -9,10 +9,10 @@ namespace Application.DTO.Creator
         {
             return new PositionResponse()
             {
-                 //PositionId = position.PositionId,
-                 //Description = position.Description,
-                 //Hierarchy = position.Hierarchy,
-                 //MaxMonthlyAmount = position.MaxMonthlyAmount,
+                PositionId = position.Id,
+                Description = position.Name,
+                Hierarchy = position.Hierarchy,
+                MaxAmount = position.MaxAmount,
             };
         }
     }

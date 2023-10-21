@@ -12,6 +12,7 @@ namespace Application.UseCases
         private IPositionQuery _repository;
         private PositionCreator _creator;
         private IPositionCommand _command;
+
         public PositionService(IPositionQuery repository, IPositionCommand command)
         {
             _repository = repository;
@@ -19,23 +20,36 @@ namespace Application.UseCases
             _command = command;
         }
 
-        public async Task<IList<PositionResponse>> GetPositions()
+        public async Task<List<PositionResponse>> GetPositions()
         {
-            IList<PositionResponse> list = new List<PositionResponse>();
-            IList<Position> entities = await _repository.GetPositions();
-            foreach (Position entity in entities)
+            List<PositionResponse> list;
+
+            IEnumerable<Position> entities = await _repository.GetPositions();
+
+            list = entities.Select(e => new PositionResponse()
             {
-                list.Add(_creator.Create(entity));
-            }
+                PositionId = e.Id,
+                Hierarchy = e.Hierarchy,
+                Description = e.Name,
+                MaxAmount = e.MaxAmount
+            }).ToList();
+
+            //foreach (Position entity in entities)
+            //{
+            //    list.Add(_creator.Create(entity));
+            //}
             return list;
         }
-        public async Task<PositionResponse>? GetPosition(int positionId)
+
+        public async Task<PositionResponse> GetPosition(int positionId)
         {
             Position? entity = await _repository.GetPosition(positionId);
             if (entity != null)
                 return _creator.Create(entity);
+
             return null;
         }
+
         public async Task<Position> CreatePosition(PositionRequest request)
         {
             //var position = new Position

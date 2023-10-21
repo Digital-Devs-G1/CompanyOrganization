@@ -23,31 +23,35 @@ namespace Presentation.API.Controllers
 
         [HttpGet]
         [Route("GetIdEmployee/")]
-        public IActionResult GetCompany(int id)
+        [ProducesResponseType(typeof(EmployeeResponse), 200)]
+        public async Task<IActionResult> GetCompany(int id)
         {
-            var traking = _employeeService.GetEmployee(id);
-            return Ok(traking);
+            var result = await _employeeService.GetEmployee(id);
+            return Ok(result);
         }
 
         [HttpGet]
-        [Route("GetAllEmployee/")]
-        public IActionResult GetEmployee()
+        [Route("GetEmployees/")]
+        [ProducesResponseType(typeof(List<EmployeeResponse>), 200)]
+        public async Task<IActionResult> GetEmployee()
         {
-            var traking = _employeeService.GetEmployees();
-            return Ok(traking);
+            var result = await _employeeService.GetEmployees();
+            return Ok(result);
         }
         [HttpPost]
         [Route("PostEmployee/")]
-        public async Task<IActionResult> CreateEmployee(EmployeeRequest request)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IActionResult> CreateEmployee([FromBody] EmployeeRequest request)
         {
-            var traking = await _employeeService.CreateEmployee(request);
-            return Ok(traking);
+            var result = await _employeeService.CreateEmployee(request);
+            return Ok(result);
         }
 
 
         [HttpGet]
         [Route("GetDepartmentByEmployee/")]
         [Authorize]
+        [ProducesResponseType(typeof(DepartmentResponse), 200)]
         public async Task<IActionResult> GetDepartmentByEmployee()
         {
             // metodo para obtener el id  del token

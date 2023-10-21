@@ -1,5 +1,4 @@
-﻿using Application.DTO.Response;
-using Domain.Entities;
+﻿using Domain.Entities;
 
 namespace Application.Interfaces.IRepositories
 {

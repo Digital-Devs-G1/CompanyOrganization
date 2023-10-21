@@ -20,27 +20,28 @@ namespace Presentation.API.Controllers
 
         [HttpGet]
         [Route("GetCompany/{id}")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetCompany(int id)
         {
-            var traking =  _companyService.GetCompany(id);
-            return Ok(traking);
+            var result = await  _companyService.GetCompany(id);
+            return Ok(result);
         }
 
         [HttpGet]
         [Route("GetCompanys/")]
-        public IActionResult GetCompanys()
+        public async Task<IActionResult> GetCompanys()
         {
-            var traking = _companyService.GetCompanys();
-            return Ok(traking);
+            var result = await _companyService.GetCompanys();
+            return Ok(result);
         }
         
         [HttpPost]
         [Route("PostCompanys/")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateCompany(CompanyRequest request)
         {
-            var traking = await _companyService.CreateCompany(request);
-            return Ok(traking);
+            var result = await _companyService.CreateCompany(request);
+            return Ok(result);
         }
     }
 }

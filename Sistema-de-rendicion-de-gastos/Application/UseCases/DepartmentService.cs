@@ -24,7 +24,7 @@ namespace Application.UseCases
         public async Task<IList<DepartmentResponse>> GetDepartments()
         {
             IList<DepartmentResponse> list = new List<DepartmentResponse>();
-            IList<Department> entities = await _query.GetDepartments();
+            IEnumerable<Department> entities = await _query.GetDepartments();
 
             foreach (Department entity in entities)
             {

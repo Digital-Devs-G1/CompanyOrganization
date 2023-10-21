@@ -1,7 +1,6 @@
 ﻿using Application.DTO.Request;
+using Application.DTO.Response;
 using Application.Interfaces.IServices;
-using Application.UseCases;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.API.Controllers
@@ -16,29 +15,33 @@ namespace Presentation.API.Controllers
         {
             _positionService = positionService;
         }
+
         [HttpGet]
-        [Route("GetIdPosition/")]
-        public IActionResult GetPosition(int id)
+        [Route("Position/{id}")]
+        [ProducesResponseType(typeof(PositionResponse), 200)]
+
+        public async Task<IActionResult> GetPosition(int id)
         {
-            var traking = _positionService.GetPosition(id);
-            return Ok(traking);
+            var result = await _positionService.GetPosition(id);
+            return Ok(result);
         }
+
         [HttpGet]
         [Route("GetAllPosition/")]
-        public IActionResult GetPosition()
+        [ProducesResponseType(typeof(List<PositionResponse>), 200)]
+        public async Task<IActionResult> GetPosition()
         {
-            var traking = _positionService.GetPositions();
-            return Ok(traking);
+            var result = await _positionService.GetPositions();
+
+            return Ok(result);
         }
         
         [HttpPost]
-        [Route("PostPosition/")]
-        public async Task<IActionResult> CreatePosition(PositionRequest request)
+        [Route("Create/")]
+        public async Task<IActionResult> CreatePosition([FromBody] PositionRequest request)
         {
-            var traking = await _positionService.CreatePosition(request);
-            return Ok(traking);
+            var result = await _positionService.CreatePosition(request);
+            return Ok(result);
         }
-
-
     }
 }

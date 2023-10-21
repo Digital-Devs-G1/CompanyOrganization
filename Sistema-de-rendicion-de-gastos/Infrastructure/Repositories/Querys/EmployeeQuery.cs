@@ -27,9 +27,9 @@ namespace Infrastructure.Repositories.Querys
             return await _dbContext.Employees.FirstOrDefaultAsync(x => x.Id == employeeId);
         }
 
-        public async Task<IList<Employee>> GetEmployees()
+        public async Task<IEnumerable<Employee>> GetEmployees()
         {
-            return await _dbContext.Set<Employee>().ToListAsync();
+            return await _dbContext.Employees.ToListAsync();
         }
     }
 }

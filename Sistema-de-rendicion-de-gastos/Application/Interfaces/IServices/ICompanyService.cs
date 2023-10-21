@@ -6,8 +6,8 @@ namespace Application.Interfaces.IServices
 {
     public interface ICompanyService
     {
-        Task<IList<CompanyResponse>> GetCompanys();
-        Task<CompanyResponse>? GetCompany(int companyId);
+        Task<List<CompanyResponse>> GetCompanys();
+        Task<CompanyResponse> GetCompany(int companyId);
         Task<Company> CreateCompany(CompanyRequest request);
     }
 }

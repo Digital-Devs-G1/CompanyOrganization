@@ -11,6 +11,7 @@ namespace Infrastructure.Repositories.Commands
         {
             _dbContext = dbContext;
         }
+
         public async Task InsertCompany(Company company)
         {
             _dbContext.Add(company);

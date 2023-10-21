@@ -21,10 +21,10 @@ namespace Application.UseCases
             _command = command;
         }
 
-        public async Task<IList<CompanyResponse>> GetCompanys()
+        public async Task<List<CompanyResponse>> GetCompanys()
         {
-            IList<CompanyResponse> list = new List<CompanyResponse>();
-            IList<Company> entities = await _query.GetCompanys();
+            List<CompanyResponse> list = new List<CompanyResponse>();
+            IEnumerable<Company> entities = await _query.GetCompanys();
 
             foreach (Company entity in entities)
             {
