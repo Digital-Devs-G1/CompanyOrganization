@@ -21,10 +21,10 @@ namespace Application.UseCases
             _command = command;
         }
 
-        public async Task<IList<EmployeeResponse>> GetEmployees()
+        public async Task<List<EmployeeResponse>> GetEmployees()
         {
-            IList<EmployeeResponse> list = new List<EmployeeResponse>();
-            IList<Employee> entities = await _repository.GetEmployees();
+            List<EmployeeResponse> list = new List<EmployeeResponse>();
+            IEnumerable<Employee> entities = await _repository.GetEmployees();
             foreach (Employee entity in entities)
             {
                 list.Add(_creator.Create(entity));

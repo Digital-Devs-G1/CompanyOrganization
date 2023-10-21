@@ -11,6 +11,6 @@ namespace Application.DTO.Response
         public int PositionId { get; set; }
         public string Description { get; set; }
         public int Hierarchy { get; set; }
-        public int MaxMonthlyAmount { get; set; }
+        public decimal MaxAmount { get; set; }
     }
 }

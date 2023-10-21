@@ -11,6 +11,7 @@ namespace Infrastructure.Repositories.Commands
         {
             _dbContext = dbContext;
         }
+
         public async Task InsertEmployee(Employee employee)
         {
             _dbContext.Add(employee);

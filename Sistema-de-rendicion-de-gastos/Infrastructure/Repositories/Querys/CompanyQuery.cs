@@ -19,9 +19,9 @@ namespace Infrastructure.Repositories.Querys
             return await _dbContext.Companys.FirstOrDefaultAsync(x => x.CompanyId == companyId);
         }
 
-        public async Task<IList<Company>> GetCompanys()
+        public async Task<IEnumerable<Company>> GetCompanys()
         {
-            return await _dbContext.Set<Company>().ToListAsync();
+            return await _dbContext.Companys.ToListAsync();
         }
     }
 }

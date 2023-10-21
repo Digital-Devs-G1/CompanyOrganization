@@ -9,15 +9,12 @@ namespace Application.DTO.Creator
         {
             return new EmployeeResponse()
             {
-                //EmployeeId = employee.EmployeeId,
-                //JobId = employee.JobId,
-                //UserId = employee.UserId,
-                //FirsName = employee.FirsName,
-                //LastName = employee.LastName,
-                //Phone = employee.Phone,
-                //Sex = employee.Sex,
-                //CivilStatus = employee.CivilStatus,
-                //Dni = employee.Dni,
+                Id = employee.Id,
+                FirsName = employee.FirstName,
+                LastName = employee.LastName,
+                DepartmentId = employee.DepartamentId,
+                SuperiorId = employee.SuperiorId,
+                PositionId = employee.PositionId
             };
         }
     }

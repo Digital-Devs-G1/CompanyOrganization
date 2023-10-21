@@ -5,7 +5,7 @@ namespace Application.Interfaces.IRepositories
 {
     public interface IDepartmentQuery
     {
-        Task<IList<Department>> GetDepartments();
+        Task<IEnumerable<Department>> GetDepartments();
         Task<Department> GetDepartment(int departmentId);
 
     }

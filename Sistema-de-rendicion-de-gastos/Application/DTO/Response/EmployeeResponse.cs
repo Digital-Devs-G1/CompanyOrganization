@@ -8,14 +8,12 @@ namespace Application.DTO.Response
 {
     public class EmployeeResponse
     {
-        public int EmployeeId { get; set; }
-        public int JobId { get; set; }
-        public int UserId { get; set; }
+        public int Id { get; set; }
         public string FirsName { get; set; }
         public string LastName { get; set; }
-        public string Phone { get; set; }
-        public string Sex { get; set; }
-        public string CivilStatus { get; set; }
-        public int Dni { get; set; }
+        public int PositionId { get; set; }
+        public int? SuperiorId { get; set; }
+        public int DepartmentId { get; set; }
+  
     }
 }

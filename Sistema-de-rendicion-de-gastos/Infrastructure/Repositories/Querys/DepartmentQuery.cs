@@ -19,9 +19,9 @@ namespace Infrastructure.Repositories.Querys
             return await _dbContext.Departments.FirstOrDefaultAsync(d => d.Id == departmentId);
         }
 
-        public async Task<IList<Department>> GetDepartments()
+        public async Task<IEnumerable<Department>> GetDepartments()
         {
-            return await _dbContext.Set<Department>().ToListAsync();
+            return await _dbContext.Departments.ToListAsync();
         }
     }
 }

@@ -19,9 +19,9 @@ namespace Infrastructure.Repositories.Querys
             return await _dbContext.Positions.FirstOrDefaultAsync(x => x.Id == positionId);
         }
 
-        public async Task<IList<Position>> GetPositions()
+        public async Task<IEnumerable<Position>> GetPositions()
         {
-            return await _dbContext.Set<Position>().ToListAsync();
+            return await _dbContext.Positions.ToListAsync();
         }
     }
 }
