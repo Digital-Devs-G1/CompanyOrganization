@@ -8,6 +8,6 @@ namespace Application.Interfaces.IServices
     {
         Task<List<PositionResponse>> GetPositions();
         Task<PositionResponse> GetPosition(int positionId);
-        Task<Position> CreatePosition(PositionRequest request);
+        Task CreatePosition(PositionRequest request);
     }
 }

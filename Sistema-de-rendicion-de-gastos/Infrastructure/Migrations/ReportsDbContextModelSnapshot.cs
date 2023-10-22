@@ -131,10 +131,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Employee", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("DepartamentId")
                         .HasColumnType("int");

@@ -22,9 +22,12 @@ namespace Infrastructure.Repositories.Querys
                             .FirstOrDefaultAsync();
         }
 
-        public async Task<Employee> GetEmployee(int employeeId)
+        public async Task<Employee> GetEmployee(int? employeeId)
         {
-            return await _dbContext.Employees.FirstOrDefaultAsync(x => x.Id == employeeId);
+            return await _dbContext.Employees
+                            .Include(x => x.Position)
+                            .Include(x => x.Departament)
+                            .FirstOrDefaultAsync(x => x.Id == employeeId);
         }
 
         public async Task<IEnumerable<Employee>> GetEmployees()

@@ -1,6 +1,6 @@
 ﻿using Application.DTO.Request;
+using Application.DTO.Response;
 using Application.Interfaces.IServices;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.API.Handlers;
 
@@ -19,29 +19,36 @@ namespace Presentation.API.Controllers
         }
 
         [HttpGet]
-        [Route("GetCompany/{id}")]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(CompanyResponse), 200)]
+        [ProducesResponseType(typeof(MessageResponse), 404)]
         //[Authorize]
         public async Task<IActionResult> GetCompany(int id)
         {
             var result = await  _companyService.GetCompany(id);
+
             return Ok(result);
         }
 
         [HttpGet]
-        [Route("GetCompanys/")]
+        [Route("GetAll")]
+        [ProducesResponseType(typeof(List<CompanyResponse>), 200)]
         public async Task<IActionResult> GetCompanys()
         {
             var result = await _companyService.GetCompanys();
+
             return Ok(result);
         }
         
         [HttpPost]
-        [Route("PostCompanys/")]
+        [Route("Insert/")]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(MessageResponse), 400)]
         public async Task<IActionResult> CreateCompany(CompanyRequest request)
         {
-            var result = await _companyService.CreateCompany(request);
-            return Ok(result);
+            await _companyService.CreateCompany(request);
+
+            return StatusCode(StatusCodes.Status201Created);
         }
     }
 }

@@ -14,6 +14,11 @@ namespace Infrastructure.Repositories.Querys
             _dbContext = dbContext;
         }
 
+        public async Task<bool> ExistDepartment(int departmentId)
+        {
+            return await _dbContext.Departments.AnyAsync(d => d.Id == departmentId);
+        }
+
         public async Task<Department> GetDepartment(int departmentId)
         {
             return await _dbContext.Departments.FirstOrDefaultAsync(d => d.Id == departmentId);

@@ -8,6 +8,6 @@ namespace Application.Interfaces.IServices
     {
         Task<IList<DepartmentResponse>> GetDepartments();
         Task<DepartmentResponse>? GetDepartment(int departmentId);
-        Task<Department> CreateDepartment(DepartmentRequest request);
+        Task CreateDepartment(DepartmentRequest request);
     }
 }
