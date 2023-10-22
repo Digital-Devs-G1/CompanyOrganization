@@ -1,9 +1,13 @@
 ﻿using Application.DTO.Creator;
 using Application.DTO.Request;
 using Application.DTO.Response;
+using Application.Exceptions;
 using Application.Interfaces.IRepositories;
 using Application.Interfaces.IServices;
 using Domain.Entities;
+using FluentValidation;
+using FluentValidation.Results;
+
 
 namespace Application.UseCases
 {
@@ -12,21 +16,21 @@ namespace Application.UseCases
         private IPositionQuery _repository;
         private PositionCreator _creator;
         private IPositionCommand _command;
+        private readonly IValidator<PositionRequest> _validator;
 
-        public PositionService(IPositionQuery repository, IPositionCommand command)
+        public PositionService(IPositionQuery repository, IPositionCommand command, IValidator<PositionRequest> validator)
         {
             _repository = repository;
             _creator = new PositionCreator();
             _command = command;
+            _validator = validator;
         }
 
         public async Task<List<PositionResponse>> GetPositions()
         {
-            List<PositionResponse> list;
-
             IEnumerable<Position> entities = await _repository.GetPositions();
 
-            list = entities.Select(e => new PositionResponse()
+            List<PositionResponse> list = entities.Select(e => new PositionResponse()
             {
                 PositionId = e.Id,
                 Hierarchy = e.Hierarchy,
@@ -34,33 +38,35 @@ namespace Application.UseCases
                 MaxAmount = e.MaxAmount
             }).ToList();
 
-            //foreach (Position entity in entities)
-            //{
-            //    list.Add(_creator.Create(entity));
-            //}
             return list;
         }
 
         public async Task<PositionResponse> GetPosition(int positionId)
         {
-            Position? entity = await _repository.GetPosition(positionId);
-            if (entity != null)
-                return _creator.Create(entity);
+            Position entity = await _repository.GetPosition(positionId);
 
-            return null;
+            if(entity == null)
+                throw new NotFoundException("La posicion no existe.");
+     
+            return _creator.Create(entity);
         }
 
-        public async Task<Position> CreatePosition(PositionRequest request)
+        public async Task CreatePosition(PositionRequest request)
         {
-            //var position = new Position
-            //{
-            //    Description = request.Description,
-            //    Hierarchy = request.Hierarchy,
-            //    MaxMonthlyAmount = request.MaxMonthlyAmount
+            ValidationResult validationResult = await _validator.ValidateAsync(request);
 
-            //};
-            await _command.InsertPosition(new Position());
-            return new Position();
+            if(!validationResult.IsValid)
+                throw new BadRequestException("Posicion Invalida", validationResult);
+
+            Position position = new Position
+            {
+                Name = request.Description,
+                Hierarchy = request.Hierarchy,
+                MaxAmount = request.MaxAmount,
+                IdCompany = request.CompanyId
+            };
+
+            await _command.InsertPosition(position);
         }
     }
 }

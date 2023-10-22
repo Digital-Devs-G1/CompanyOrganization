@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ReportsDbContext))]
-    [Migration("20231020024303_InitMigration")]
+    [Migration("20231022064424_InitMigration")]
     partial class InitMigration
     {
         /// <inheritdoc />
@@ -134,10 +134,7 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Employee", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("DepartamentId")
                         .HasColumnType("int");

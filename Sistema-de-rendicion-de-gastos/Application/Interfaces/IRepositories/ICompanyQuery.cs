@@ -7,5 +7,6 @@ namespace Application.Interfaces.IRepositories
     {
         Task<IEnumerable<Company>> GetCompanys();
         Task<Company> GetCompany(int companyId);
+        Task<bool> ExistCompany(int companyId);
     }
 }

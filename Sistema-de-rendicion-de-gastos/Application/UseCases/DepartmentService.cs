@@ -5,6 +5,8 @@ using Application.Exceptions;
 using Application.Interfaces.IRepositories;
 using Application.Interfaces.IServices;
 using Domain.Entities;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace Application.UseCases
 {
@@ -13,12 +15,15 @@ namespace Application.UseCases
         private readonly IDepartmentQuery _query;
         private readonly IDepartmentCommand _command;
         private readonly DepartmentCreator _creator;
+        private readonly IValidator<DepartmentRequest> _validator;
 
-        public DepartmentService(IDepartmentQuery repository, IDepartmentCommand command)
+
+        public DepartmentService(IDepartmentQuery repository, IDepartmentCommand command, IValidator<DepartmentRequest> validator)
         {
             _query = repository;
             _creator = new DepartmentCreator();
             _command = command;
+            _validator = validator;
         }
 
         public async Task<IList<DepartmentResponse>> GetDepartments()
@@ -44,15 +49,20 @@ namespace Application.UseCases
             return _creator.Create(entity);
         }
 
-        public async Task<Department> CreateDepartment(DepartmentRequest request)
+        public async Task CreateDepartment(DepartmentRequest request)
         {
+            ValidationResult validatorResult = await _validator.ValidateAsync(request);
 
-            var department = new Department
+            if(!validatorResult.IsValid)
+                throw new BadRequestException("Departamento Invalido", validatorResult);
+
+            Department department = new Department
             {
-                Name = request.Name
+                Name = request.Name,
+                IdCompany = request.IdCompany
             };
+
            await _command.InsertDepartment(department);
-           return department;
         }
     }
 }

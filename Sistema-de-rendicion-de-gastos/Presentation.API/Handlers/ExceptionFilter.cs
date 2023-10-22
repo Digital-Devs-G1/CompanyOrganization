@@ -11,27 +11,28 @@ namespace Presentation.API.Handlers
         public override void OnException(ExceptionContext context)
         {
             var statusCode = HttpStatusCode.InternalServerError;
-            List<string> message = new List<string>();
+            MessageResponse message = new MessageResponse();
 
             if(context.Exception is NotFoundException)
             {
                 statusCode = HttpStatusCode.NotFound;
-                message.Add(context.Exception.Message);
+                message.Message = context.Exception.Message;
+            }
+            else if(context.Exception is BadRequestException) 
+            {
+                statusCode = HttpStatusCode.BadRequest;
+                message.Message = context.Exception.Message;
+                message.Errors = ((BadRequestException)context.Exception).ValidationErrors;
             }
             else
             {
                 statusCode = HttpStatusCode.InternalServerError;
-                message.Add("Ha ocurrido un error interno.");
+                message.Message = context.Exception.Message;
             }
 
             context.ExceptionHandled = true;
             context.HttpContext.Response.StatusCode = (int)statusCode;
-            context.Result = new JsonResult(
-                new MessageResponse()
-                {
-                    Messages = message
-                }
-            );
+            context.Result = new JsonResult(message);
         }
     }
 }

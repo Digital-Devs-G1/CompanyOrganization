@@ -6,6 +6,7 @@ namespace Application.Interfaces.IRepositories
     {
         Task<IEnumerable<Position>> GetPositions();
         Task<Position> GetPosition(int positionId);
+        Task<bool> ExistPosition(int positionId);
     }
 }
 

@@ -8,7 +8,7 @@ namespace Application.Interfaces.IServices
     {
         Task<List<EmployeeResponse>> GetEmployees();
         Task<EmployeeResponse> GetEmployee(int employeeId);
-        Task<Employee> CreateEmployee(EmployeeRequest request);
+        Task CreateEmployee(EmployeeRequest request);
         Task<DepartmentResponse> GetDepartmentByIdUser(int idUser);
     }
 }

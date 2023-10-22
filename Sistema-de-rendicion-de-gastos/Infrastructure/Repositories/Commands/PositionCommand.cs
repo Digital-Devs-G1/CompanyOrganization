@@ -7,6 +7,7 @@ namespace Infrastructure.Repositories.Commands
     public class PositionCommand : IPositionCommand
     {
         private readonly ReportsDbContext _dbContext;
+
         public PositionCommand(ReportsDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -15,6 +16,7 @@ namespace Infrastructure.Repositories.Commands
         public async Task InsertPosition(Position position)
         {
             _dbContext.Add(position);
+
             await _dbContext.SaveChangesAsync();
         }
     }

@@ -2,6 +2,7 @@
 {
     public class MessageResponse
     {
-        public List<string> Messages { get; set; } = new List<string>();
+        public string Message { get; set; }
+        public IDictionary<string, string[]> Errors { get; set; } = new Dictionary<string, string[]>();
     }
 }

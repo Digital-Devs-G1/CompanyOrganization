@@ -14,7 +14,12 @@ namespace Infrastructure.Repositories.Querys
             _dbContext = dbContext;
         }
 
-        public async Task<Company>? GetCompany(int companyId)
+        public async Task<bool> ExistCompany(int companyId)
+        {
+            return await _dbContext.Companys.AnyAsync(x => x.CompanyId == companyId);
+        }
+
+        public async Task<Company> GetCompany(int companyId)
         {
             return await _dbContext.Companys.FirstOrDefaultAsync(x => x.CompanyId == companyId);
         }

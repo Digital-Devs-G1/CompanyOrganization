@@ -9,6 +9,9 @@ namespace Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
             builder.HasKey(e => e.Id);
+              
+            builder.Property(e => e.Id)
+                    .ValueGeneratedNever();
 
             builder.Property(e => e.FirstName)
                 .IsRequired()
@@ -36,8 +39,6 @@ namespace Infrastructure.Persistence.Configurations
                     .WithMany(u => u.Employees)
                     .HasForeignKey(u => u.DepartamentId)
                     .OnDelete(DeleteBehavior.Restrict);
-
-           
         }
     }
 }

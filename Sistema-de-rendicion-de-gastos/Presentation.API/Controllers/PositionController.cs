@@ -2,11 +2,14 @@
 using Application.DTO.Response;
 using Application.Interfaces.IServices;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.API.Handlers;
 
 namespace Presentation.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [TypeFilter(typeof(ExceptionFilter))]
+
     public class PositionController : ControllerBase
     {
         private IPositionService _positionService;
@@ -37,11 +40,12 @@ namespace Presentation.API.Controllers
         }
         
         [HttpPost]
-        [Route("Create/")]
+        [Route("Insert/")]
         public async Task<IActionResult> CreatePosition([FromBody] PositionRequest request)
         {
-            var result = await _positionService.CreatePosition(request);
-            return Ok(result);
+            await _positionService.CreatePosition(request);
+
+            return StatusCode(StatusCodes.Status201Created);
         }
     }
 }

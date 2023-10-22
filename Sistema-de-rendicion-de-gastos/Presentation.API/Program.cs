@@ -1,9 +1,5 @@
-using Application.Interfaces.IRepositories;
-using Application.Interfaces.IServices;
-using Application.UseCases;
-using Infrastructure.Persistence;
-using Infrastructure.Repositories.Commands;
-using Infrastructure.Repositories.Querys;
+using Application;
+using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -17,8 +13,12 @@ namespace Presentation.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            #region Inyection
+            builder.Services.AddApplicationLayer();
+            builder.Services.AddInfraestructureLayer();
+            #endregion
 
+            // Add services to the container.
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -57,15 +57,7 @@ namespace Presentation.API
                 });
             });
 
-            builder.Services.AddScoped<ReportsDbContext>();
-            builder.Services.AddScoped<IDepartmentQuery, DepartmentQuery>();
-            builder.Services.AddScoped<ICompanyQuery, CompanyQuery>();
-            builder.Services.AddScoped<ICompanyService, CompanyService>();
-            builder.Services.AddScoped<IDepartmentService, DepartmentService>();
-            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
-            builder.Services.AddScoped<IDepartmentCommand, DepartmentCommand>();
-            builder.Services.AddScoped<ICompanyCommand, CompanyCommand>();
-
+          
             // config token
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
@@ -92,16 +84,6 @@ namespace Presentation.API
 
                 });
             });
-
-            builder.Services.AddScoped<IEmployeeQuery, EmployeeQuery>();
-            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
-            builder.Services.AddScoped<IPositionQuery, PositionQuery>();
-            builder.Services.AddScoped<IPositionService, PositionService>();
-       
-
-            builder.Services.AddScoped<IEmployeeCommand, EmployeeCommand>();
-            builder.Services.AddScoped<IPositionCommand, PositionCommand>();
-         
 
             var app = builder.Build();
             if (app.Environment.IsDevelopment())
