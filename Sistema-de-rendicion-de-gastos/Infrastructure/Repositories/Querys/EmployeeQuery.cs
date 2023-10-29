@@ -27,6 +27,7 @@ namespace Infrastructure.Repositories.Querys
             return await _dbContext.Employees
                             .Include(x => x.Position)
                             .Include(x => x.Departament)
+                            .Include(x => x.Superior.Position)
                             .FirstOrDefaultAsync(x => x.Id == employeeId);
         }
 
