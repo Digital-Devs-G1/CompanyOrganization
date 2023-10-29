@@ -66,6 +66,17 @@ namespace Presentation.API.Controllers
             return StatusCode(StatusCodes.Status201Created);
         }
 
+        [HttpGet]
+        [Route("ObtenerAprobador/{monto}")]
+        [ProducesResponseType(typeof(int), 200)]
+        public async Task<IActionResult> UpdateAprrover(int monto)
+        {
+            string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
+
+            var value = await _employeeService.NextApprover(Convert.ToInt32(idUser),monto);
+
+            return Ok(value);
+        }
     }
 }
 

@@ -1,6 +1,5 @@
 ﻿using Application.DTO.Request;
 using Application.DTO.Response;
-using Domain.Entities;
 
 namespace Application.Interfaces.IServices
 {
@@ -9,6 +8,7 @@ namespace Application.Interfaces.IServices
         Task<List<EmployeeResponse>> GetEmployees();
         Task<EmployeeResponse> GetEmployee(int employeeId);
         Task CreateEmployee(EmployeeRequest request);
+        Task<int?> NextApprover(int? id, int monto);
         Task<DepartmentResponse> GetDepartmentByIdUser(int idUser);
     }
 }
