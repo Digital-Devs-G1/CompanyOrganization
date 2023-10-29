@@ -10,6 +10,7 @@ namespace Application.Validators
         private readonly IDepartmentQuery _departmentQuery;
         private readonly IPositionQuery _positionQuery;
         private readonly IEmployeeQuery _employeeQuery;
+        private int _hierarchy;
 
         public CreateEmployeeValidator(IDepartmentQuery _departmentQuery, IPositionQuery positionQuery, IEmployeeQuery employeeQuery)
         {
@@ -35,7 +36,7 @@ namespace Application.Validators
 
             RuleFor(x => x)
                .MustAsync(ExistEmployee)
-               .WithMessage("El superior debe existir y pertenecer al mismo departamento.").WithName("Superior");
+               .WithMessage("El superior debe pertenecer al mismo departamento y mayor jerarquia.").WithName("Superior");
         }
 
         private async Task<bool> ExistEmployee(EmployeeRequest request, CancellationToken token)
@@ -45,7 +46,7 @@ namespace Application.Validators
 
             Employee superior = await _employeeQuery.GetEmployee(request.SuperiorId);
 
-            if (superior == null)
+            if (superior == null || _hierarchy >= superior.Position.Hierarchy)
                 return false;
             
             return superior.DepartamentId == request.DepartmentId;
@@ -53,7 +54,13 @@ namespace Application.Validators
 
         private async Task<bool> ExistPosition(EmployeeRequest request, CancellationToken token)
         {
-            return await _positionQuery.ExistPosition(request.PositionId);
+            Position position =  await _positionQuery.GetPosition(request.PositionId);
+            if (position == null) 
+                return false;
+
+            _hierarchy = position.Hierarchy;
+
+            return true;
         }
 
         private async Task<bool> ExistDepartment(EmployeeRequest request, CancellationToken token)
