@@ -24,7 +24,6 @@ namespace Infrastructure.Persistence
             modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
             modelBuilder.ApplyConfiguration(new PositionConfiguration());
 
-          
             modelBuilder.ApplyConfiguration(new CompanyInserts());
             modelBuilder.ApplyConfiguration(new DepartmentInserts());
             modelBuilder.ApplyConfiguration(new PositionInserts());

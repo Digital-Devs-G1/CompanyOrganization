@@ -7,7 +7,7 @@
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitMigration : Migration
+    public partial class initMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -78,6 +78,8 @@ namespace Infrastructure.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     SuperiorId = table.Column<int>(type: "int", nullable: true),
+                    HistoryFlag = table.Column<bool>(type: "bit", nullable: false),
+                    ApprovalsFlag = table.Column<bool>(type: "bit", nullable: false),
                     DepartamentId = table.Column<int>(type: "int", nullable: false),
                     PositionId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -130,14 +132,20 @@ namespace Infrastructure.Migrations
                 columns: new[] { "Id", "Hierarchy", "IdCompany", "MaxAmount", "Name" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, 500000m, "Socio" },
-                    { 2, 10, 1, 5000m, "Director" }
+                    { 1, 10, 1, 50000m, "Director" },
+                    { 2, 10, 1, 50000m, "Lider" },
+                    { 3, 10, 1, 500m, "Empleado" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Employees",
-                columns: new[] { "Id", "DepartamentId", "FirstName", "LastName", "PositionId", "SuperiorId" },
-                values: new object[] { 1, 1, "leo", "messi", 1, null });
+                columns: new[] { "Id", "ApprovalsFlag", "DepartamentId", "FirstName", "HistoryFlag", "LastName", "PositionId", "SuperiorId" },
+                values: new object[,]
+                {
+                    { 1, false, 1, "diego", false, "rodriguez", 1, null },
+                    { 2, false, 1, "jose", false, "martinez", 2, 1 },
+                    { 3, false, 1, "Miguel Ángel", false, "Merentiel", 1, 2 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Departments_IdCompany",

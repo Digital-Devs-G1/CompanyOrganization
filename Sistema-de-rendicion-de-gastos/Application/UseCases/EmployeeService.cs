@@ -115,5 +115,46 @@ namespace Application.UseCases
 
             await _command.DeleteEmployee(entity);
         }
+
+        public async Task AcceptHistoryFlag(int id)
+        {
+            Employee entity = await _repository.GetEmployee(id);
+
+            if(entity == null)
+                throw new BadRequestException("empleado invalido");
+
+            await _command.AcceptHistoryFlag(entity);
+        }
+
+        public async Task DissmisHistoryFlag(int id)
+        {
+            Employee entity = await _repository.GetEmployee(id);
+
+            if(entity == null)
+                throw new BadRequestException("empleado invalido");
+
+            await _command.DissmisHistoryFlag(entity);
+
+        }
+
+        public async Task AcceptApprovalsFlagFlag(int id)
+        {
+            Employee entity = await _repository.GetEmployee(id);
+
+            if(entity == null)
+                throw new BadRequestException("empleado invalido");
+
+            await _command.AcceptApprovalsFlagFlag(entity);
+        }
+
+        public async Task DissmisApprovalsFlag(int id)
+        {
+            Employee entity = await _repository.GetEmployee(id);
+
+            if(entity == null)
+                throw new BadRequestException("empleado invalido");
+
+            await _command.DissmisApprovalsFlag(entity);
+        }
     }
 }

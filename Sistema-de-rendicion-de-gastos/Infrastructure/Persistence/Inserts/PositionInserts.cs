@@ -12,17 +12,25 @@ namespace Infrastructure.Persistence.Inserts
                    new Position()
                    {
                        Id = 1,
-                       Name = "Socio",
-                       Hierarchy = 1,
-                       MaxAmount = 500000,
+                       Name = "Director",
+                       Hierarchy = 10,
+                       MaxAmount = 50000,
                        IdCompany = 1,
                    },
                    new Position()
                    {
                        Id = 2,
-                       Name = "Director",
+                       Name = "Lider",
                        Hierarchy = 10,
-                       MaxAmount = 5000,
+                       MaxAmount = 50000,
+                       IdCompany = 1,
+                   },
+                   new Position()
+                   {
+                       Id = 3,
+                       Name = "Empleado",
+                       Hierarchy = 10,
+                       MaxAmount = 500,
                        IdCompany = 1,
                    });
         }

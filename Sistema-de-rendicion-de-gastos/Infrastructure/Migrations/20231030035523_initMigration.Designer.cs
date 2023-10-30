@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ReportsDbContext))]
-    [Migration("20231022064424_InitMigration")]
-    partial class InitMigration
+    [Migration("20231030035523_initMigration")]
+    partial class initMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -136,6 +136,9 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
+                    b.Property<bool>("ApprovalsFlag")
+                        .HasColumnType("bit");
+
                     b.Property<int>("DepartamentId")
                         .HasColumnType("int");
 
@@ -143,6 +146,9 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("HistoryFlag")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -169,10 +175,34 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
+                            ApprovalsFlag = false,
                             DepartamentId = 1,
-                            FirstName = "leo",
-                            LastName = "messi",
+                            FirstName = "diego",
+                            HistoryFlag = false,
+                            LastName = "rodriguez",
                             PositionId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ApprovalsFlag = false,
+                            DepartamentId = 1,
+                            FirstName = "jose",
+                            HistoryFlag = false,
+                            LastName = "martinez",
+                            PositionId = 2,
+                            SuperiorId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ApprovalsFlag = false,
+                            DepartamentId = 1,
+                            FirstName = "Miguel Ángel",
+                            HistoryFlag = false,
+                            LastName = "Merentiel",
+                            PositionId = 1,
+                            SuperiorId = 2
                         });
                 });
 
@@ -208,18 +238,26 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Hierarchy = 1,
+                            Hierarchy = 10,
                             IdCompany = 1,
-                            MaxAmount = 500000m,
-                            Name = "Socio"
+                            MaxAmount = 50000m,
+                            Name = "Director"
                         },
                         new
                         {
                             Id = 2,
                             Hierarchy = 10,
                             IdCompany = 1,
-                            MaxAmount = 5000m,
-                            Name = "Director"
+                            MaxAmount = 50000m,
+                            Name = "Lider"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Hierarchy = 10,
+                            IdCompany = 1,
+                            MaxAmount = 500m,
+                            Name = "Empleado"
                         });
                 });
 

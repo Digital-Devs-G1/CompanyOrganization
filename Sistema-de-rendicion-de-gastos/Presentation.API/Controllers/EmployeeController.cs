@@ -89,6 +89,52 @@ namespace Presentation.API.Controllers
 
             return Ok(value);
         }
+
+
+        [HttpPatch]
+        [Route("HistoryFlagON")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> AcceptHistoryFlag()
+        {
+            string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
+
+            await _employeeService.AcceptHistoryFlag(Convert.ToInt32(idUser));
+            return Ok();
+        }
+
+        [HttpPatch]
+        [Route("HistoryFlagOFF")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> DissmisHistoryFlag()
+        {
+            string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
+
+            await _employeeService.DissmisHistoryFlag(Convert.ToInt32(idUser));
+            return Ok();
+        }
+
+        [HttpPatch]
+        [Route("ApprovalsFlagON")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> AcceptApprovalsFlagFlag()
+        {
+            string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
+
+            await _employeeService.AcceptApprovalsFlagFlag(Convert.ToInt32(idUser));
+            return Ok();
+        }
+
+        [HttpPatch]
+        [Route("ApprovalsFlagOFF")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> DissmisApprovalsFlag()
+        {
+            string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
+
+            await _employeeService.DissmisApprovalsFlag(Convert.ToInt32(idUser));
+
+            return Ok();
+        }
     }
 }
 

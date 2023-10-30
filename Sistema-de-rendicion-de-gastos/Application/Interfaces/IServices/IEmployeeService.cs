@@ -11,5 +11,9 @@ namespace Application.Interfaces.IServices
         Task<int?> NextApprover(int? id, int monto);
         Task<DepartmentResponse> GetDepartmentByIdUser(int idUser);
         Task DeleteEmployee(int id);
+        Task AcceptHistoryFlag(int id);
+        Task DissmisHistoryFlag(int id);
+        Task AcceptApprovalsFlagFlag(int id);
+        Task DissmisApprovalsFlag(int id);
     }
 }
