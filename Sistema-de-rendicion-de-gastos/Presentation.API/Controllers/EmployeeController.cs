@@ -96,7 +96,9 @@ namespace Presentation.API.Controllers
         [ProducesResponseType(200)]
         public async Task<IActionResult> AcceptHistoryFlag()
         {
-            await _employeeService.AcceptHistoryFlag(2);
+            string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
+
+            await _employeeService.AcceptHistoryFlag(Convert.ToInt32(idUser));
             return Ok();
         }
 
@@ -105,7 +107,9 @@ namespace Presentation.API.Controllers
         [ProducesResponseType(200)]
         public async Task<IActionResult> DissmisHistoryFlag()
         {
-            await _employeeService.DissmisHistoryFlag(2);
+            string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
+
+            await _employeeService.DissmisHistoryFlag(Convert.ToInt32(idUser));
             return Ok();
         }
 
@@ -114,7 +118,9 @@ namespace Presentation.API.Controllers
         [ProducesResponseType(200)]
         public async Task<IActionResult> AcceptApprovalsFlagFlag()
         {
-            await _employeeService.AcceptApprovalsFlagFlag(2);
+            string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
+
+            await _employeeService.AcceptApprovalsFlagFlag(Convert.ToInt32(idUser));
             return Ok();
         }
 
@@ -123,7 +129,10 @@ namespace Presentation.API.Controllers
         [ProducesResponseType(200)]
         public async Task<IActionResult> DissmisApprovalsFlag()
         {
-            await _employeeService.DissmisApprovalsFlag(2);
+            string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
+
+            await _employeeService.DissmisApprovalsFlag(Convert.ToInt32(idUser));
+
             return Ok();
         }
     }
