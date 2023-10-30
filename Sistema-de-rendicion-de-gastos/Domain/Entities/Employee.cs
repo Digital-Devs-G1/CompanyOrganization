@@ -14,6 +14,9 @@ namespace Domain.Entities
         public int? SuperiorId { get; set; }
         public Employee Superior { get; set; }
 
+        public bool HistoryFlag { get; set; }
+        public bool ApprovalsFlag { get; set; }
+
         public IEnumerable<Employee> Subordinates { get; set; }
 
         public int DepartamentId { get; set; }

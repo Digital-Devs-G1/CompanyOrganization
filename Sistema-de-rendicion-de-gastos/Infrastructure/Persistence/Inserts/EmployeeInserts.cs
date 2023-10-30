@@ -13,10 +13,34 @@ namespace Infrastructure.Persistence.Inserts
                     new Employee()
                     {
                         Id = 1,
-                        FirstName = "leo",
-                        LastName = "messi",
+                        FirstName = "diego",
+                        LastName = "rodriguez",
                         DepartamentId = 1,
-                        PositionId = 1
+                        PositionId = 1,
+                        HistoryFlag = false,
+                        ApprovalsFlag = false,
+                    },
+                    new Employee()
+                    {
+                        Id = 2,
+                        FirstName = "jose",
+                        LastName = "martinez",
+                        DepartamentId = 1,
+                        PositionId = 2,
+                        SuperiorId = 1,
+                        HistoryFlag = false,
+                        ApprovalsFlag = false,
+                    },
+                    new Employee()
+                    {
+                        Id = 3,
+                        FirstName = "Miguel Ángel",
+                        LastName = "Merentiel",
+                        DepartamentId = 1,
+                        PositionId = 1,
+                        SuperiorId = 2,
+                        HistoryFlag = false,
+                        ApprovalsFlag = false,
                     });
         }
     }

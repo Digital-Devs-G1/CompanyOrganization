@@ -21,6 +21,12 @@ namespace Infrastructure.Persistence.Configurations
                 .IsRequired()
                 .HasMaxLength(50);
 
+            builder.Property(e => e.HistoryFlag)
+                .IsRequired();
+
+            builder.Property(e => e.ApprovalsFlag)
+                .IsRequired();
+
             builder.Property(e => e.SuperiorId)
                     .IsRequired(false);
 
