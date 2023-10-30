@@ -5,6 +5,7 @@ namespace Application.Interfaces.IRepositories
 {
     public interface IPositionCommand
     {
+        Task DeletePosition(Position entity);
         Task InsertPosition(Position position);
     }
 }

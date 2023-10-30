@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces.IRepositories;
 using Domain.Entities;
 using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories.Commands
 {
@@ -11,6 +12,12 @@ namespace Infrastructure.Repositories.Commands
         public DepartmentCommand(ReportsDbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public async Task DeleteDepartment(Department entity)
+        {
+            _dbContext.Departments.Remove(entity);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task InsertDepartment(Department department)

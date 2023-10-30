@@ -9,5 +9,6 @@ namespace Application.Interfaces.IServices
         Task<List<PositionResponse>> GetPositions();
         Task<PositionResponse> GetPosition(int positionId);
         Task CreatePosition(PositionRequest request);
+        Task DeletePosition(int id);
     }
 }

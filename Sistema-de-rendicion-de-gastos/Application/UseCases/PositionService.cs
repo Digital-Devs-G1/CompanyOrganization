@@ -68,5 +68,15 @@ namespace Application.UseCases
 
             await _command.InsertPosition(position);
         }
+
+        public async Task DeletePosition(int id)
+        {
+            Position entity = await _repository.GetPosition(id);
+
+            if(entity == null)
+                throw new NotFoundException("La posicion no existe.");
+
+            await _command.DeletePosition(entity);
+        }
     }
 }
