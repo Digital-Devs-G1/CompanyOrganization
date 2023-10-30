@@ -89,6 +89,43 @@ namespace Presentation.API.Controllers
 
             return Ok(value);
         }
+
+
+        [HttpPatch]
+        [Route("HistoryFlagON")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> AcceptHistoryFlag()
+        {
+            await _employeeService.AcceptHistoryFlag(2);
+            return Ok();
+        }
+
+        [HttpPatch]
+        [Route("HistoryFlagOFF")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> DissmisHistoryFlag()
+        {
+            await _employeeService.DissmisHistoryFlag(2);
+            return Ok();
+        }
+
+        [HttpPatch]
+        [Route("ApprovalsFlagON")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> AcceptApprovalsFlagFlag()
+        {
+            await _employeeService.AcceptApprovalsFlagFlag(2);
+            return Ok();
+        }
+
+        [HttpPatch]
+        [Route("ApprovalsFlagOFF")]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> DissmisApprovalsFlag()
+        {
+            await _employeeService.DissmisApprovalsFlag(2);
+            return Ok();
+        }
     }
 }
 
