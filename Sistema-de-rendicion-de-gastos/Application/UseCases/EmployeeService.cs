@@ -57,6 +57,7 @@ namespace Application.UseCases
 
             if(!validatorResult.IsValid)
                 throw new BadRequestException("Empleado Invalido", validatorResult);
+
             
 
             Employee employee = new Employee
@@ -103,6 +104,16 @@ namespace Application.UseCases
             //throw new BadRequestException("Superior puede aprobar el monto solicitado.");
            
             return await this.NextApprover(entity.SuperiorId, monto);
+        }
+
+        public async Task DeleteEmployee(int id)
+        {
+            Employee entity = await _repository.GetEmployee(id);
+
+            if(entity == null)
+                throw new BadRequestException("empleado invalido");
+
+            await _command.DeleteEmployee(entity);
         }
     }
 }

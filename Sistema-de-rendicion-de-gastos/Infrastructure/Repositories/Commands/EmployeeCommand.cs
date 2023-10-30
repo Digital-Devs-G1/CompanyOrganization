@@ -12,6 +12,13 @@ namespace Infrastructure.Repositories.Commands
             _dbContext = dbContext;
         }
 
+        public async Task DeleteEmployee(Employee employee)
+        {
+            _dbContext.Employees.Remove(employee);
+
+            _dbContext.SaveChangesAsync();
+        }
+
         public async Task InsertEmployee(Employee employee)
         {
             _dbContext.Add(employee);

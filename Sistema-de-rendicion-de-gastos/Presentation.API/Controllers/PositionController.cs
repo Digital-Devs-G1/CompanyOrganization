@@ -47,5 +47,16 @@ namespace Presentation.API.Controllers
 
             return StatusCode(StatusCodes.Status201Created);
         }
+
+        [HttpDelete]
+        [Route("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(MessageResponse), 400)]
+        public async Task<IActionResult> DeletePosition(int id)
+        {
+            await _positionService.DeletePosition(id);
+
+            return Ok();
+        }
     }
 }

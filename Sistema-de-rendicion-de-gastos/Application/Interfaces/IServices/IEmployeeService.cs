@@ -10,5 +10,6 @@ namespace Application.Interfaces.IServices
         Task CreateEmployee(EmployeeRequest request);
         Task<int?> NextApprover(int? id, int monto);
         Task<DepartmentResponse> GetDepartmentByIdUser(int idUser);
+        Task DeleteEmployee(int id);
     }
 }

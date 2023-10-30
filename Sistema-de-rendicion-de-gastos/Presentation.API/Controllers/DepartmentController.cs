@@ -50,5 +50,16 @@ namespace Presentation.API.Controllers
             return StatusCode(StatusCodes.Status201Created);
         }
 
+
+        [HttpDelete]
+        [Route("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(MessageResponse), 400)]
+        public async Task<IActionResult> DeleteDepartment(int id)
+        {
+            await _departmentService.DeleteDepartment(id);
+
+            return Ok();
+        }
     }
 }

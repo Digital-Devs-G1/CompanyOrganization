@@ -1,6 +1,7 @@
 ﻿using Application.DTO.Request;
 using Application.DTO.Response;
 using Application.Interfaces.IServices;
+using Application.UseCases;
 using Infrastructure.Authentication;
 using Infrastructure.Authentication.Constants;
 using Microsoft.AspNetCore.Authorization;
@@ -64,6 +65,17 @@ namespace Presentation.API.Controllers
             await _employeeService.CreateEmployee(request);
 
             return StatusCode(StatusCodes.Status201Created);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(typeof(MessageResponse), 400)]
+        public async Task<IActionResult> DeletePosition(int id)
+        {
+            await _employeeService.DeleteEmployee(id);
+
+            return Ok();
         }
 
         [HttpGet]

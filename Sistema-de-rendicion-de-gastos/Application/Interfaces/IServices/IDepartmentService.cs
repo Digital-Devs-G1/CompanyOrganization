@@ -9,5 +9,6 @@ namespace Application.Interfaces.IServices
         Task<IList<DepartmentResponse>> GetDepartments();
         Task<DepartmentResponse>? GetDepartment(int departmentId);
         Task CreateDepartment(DepartmentRequest request);
+        Task DeleteDepartment(int id);
     }
 }

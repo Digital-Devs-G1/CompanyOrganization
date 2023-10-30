@@ -64,5 +64,16 @@ namespace Application.UseCases
 
            await _command.InsertDepartment(department);
         }
+
+        public async Task DeleteDepartment(int id)
+        {
+            Department entity = await _query.GetDepartment(id);
+
+            if(entity == null)
+                throw new NotFoundException("El departamento no existe.");
+
+            await _command.DeleteDepartment(entity);
+
+        }
     }
 }
