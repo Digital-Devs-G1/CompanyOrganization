@@ -14,7 +14,7 @@ namespace Infrastructure.Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=localhost;Database=RendicionGastos;User Id=consulta;Password=consulta;Integrated Security=True;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer(@"Server=localhost;Database=Company;User Id=consulta;Password=consulta;Integrated Security=True;TrustServerCertificate=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

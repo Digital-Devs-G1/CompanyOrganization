@@ -46,7 +46,7 @@ namespace Application.Validators
 
             Employee superior = await _employeeQuery.GetEmployee(request.SuperiorId);
 
-            if (superior == null || _hierarchy >= superior.Position.Hierarchy)
+            if (superior == null || _hierarchy > superior.Position.Hierarchy)
                 return false;
             
             return superior.DepartamentId == request.DepartmentId;

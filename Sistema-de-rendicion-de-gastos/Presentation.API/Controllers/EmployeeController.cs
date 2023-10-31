@@ -45,7 +45,6 @@ namespace Presentation.API.Controllers
 
         [HttpGet]
         [Route("GetDepartmentByEmployee/")]
-        [Authorize]
         [ProducesResponseType(typeof(DepartmentResponse), 200)]
         public async Task<IActionResult> GetDepartmentByEmployee()
         {
@@ -58,7 +57,7 @@ namespace Presentation.API.Controllers
         }
 
         [HttpPost]
-        [Route("Insert/")]
+        [Route("/")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateEmployee([FromBody] EmployeeRequest request)
         {
