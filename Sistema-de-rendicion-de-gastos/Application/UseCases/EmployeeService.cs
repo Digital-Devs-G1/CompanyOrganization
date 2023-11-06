@@ -64,7 +64,7 @@ namespace Application.UseCases
             {
                Id = request.Id,
                FirstName = request.FirsName,
-               LastName = request.FirsName,
+               LastName = request.LastName,
                DepartamentId = request.DepartmentId,
                SuperiorId = request.SuperiorId,
                PositionId = request.PositionId,
@@ -86,24 +86,25 @@ namespace Application.UseCases
             return response;
         }
 
-        public async Task<int?> NextApprover(int? id, int monto)
+        public async Task<int> NextApprover(int id)
         {
-            if(id == null)
-                return null;
-        
-            Employee entity = await _repository.GetEmployee(id);
-
-            if(entity == null)
+            if(id < 1)
                 throw new BadRequestException("usuario invalido");
 
-            decimal MaxAmountSuperior = entity.Superior.Position.MaxAmount;
+            Employee entity = await _repository.GetEmployee(id);
             
+            if(entity == null)
+                throw new NotFoundException("usuario invalido");
+
+            //decimal MaxAmountSuperior = entity.Superior.Position.MaxAmount;
+
             // si devolvemos el mismo id del superior significa que es el que lo puede aprobar.
-            if(MaxAmountSuperior >= monto || entity.Superior.SuperiorId == null) // devolvemos el ultimo en la cadena, el cual puede ser el superior directo pormas q no lo pueda aprobar.
+            /*if(MaxAmountSuperior >= monto || entity.Superior.SuperiorId == null) // devolvemos el ultimo en la cadena, el cual puede ser el superior directo pormas q no lo pueda aprobar.
                 return entity.SuperiorId;
             //throw new BadRequestException("Superior puede aprobar el monto solicitado.");
-           
-            return await this.NextApprover(entity.SuperiorId, monto);
+*/
+            //return await this.NextApprover(entity*.SuperiorId, monto);
+            return (int)((entity.SuperiorId == null) ? 0 : entity.SuperiorId);
         }
 
         public async Task DeleteEmployee(int id)

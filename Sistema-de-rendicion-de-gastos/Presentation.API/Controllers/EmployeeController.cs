@@ -57,8 +57,9 @@ namespace Presentation.API.Controllers
         }
 
         [HttpPost]
-        [Route("/")]
+        [Route("/api/v1/Employee")]
         [ProducesResponseType(StatusCodes.Status201Created)]
+        [Authorize]
         public async Task<IActionResult> CreateEmployee([FromBody] EmployeeRequest request)
         {
             await _employeeService.CreateEmployee(request);
@@ -78,13 +79,13 @@ namespace Presentation.API.Controllers
         }
 
         [HttpGet]
-        [Route("ObtenerAprobador/{monto}")]
+        [Route("ObtenerAprobador")]
         [ProducesResponseType(typeof(int), 200)]
-        public async Task<IActionResult> UpdateAprrover(int monto)
+        public async Task<IActionResult> UpdateAprrover()
         {
             string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
 
-            var value = await _employeeService.NextApprover(Convert.ToInt32(idUser),monto);
+            var value = await _employeeService.NextApprover(Convert.ToInt32(idUser));
 
             return Ok(value);
         }

@@ -8,7 +8,7 @@ namespace Application.Interfaces.IServices
         Task<List<EmployeeResponse>> GetEmployees();
         Task<EmployeeResponse> GetEmployee(int employeeId);
         Task CreateEmployee(EmployeeRequest request);
-        Task<int?> NextApprover(int? id, int monto);
+        Task<int> NextApprover(int id);
         Task<DepartmentResponse> GetDepartmentByIdUser(int idUser);
         Task DeleteEmployee(int id);
         Task AcceptHistoryFlag(int id);

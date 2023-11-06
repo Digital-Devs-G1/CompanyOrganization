@@ -7,5 +7,6 @@ namespace Application.Interfaces.IRepositories
         Task<IEnumerable<Employee>> GetEmployees();
         Task<Employee> GetEmployee(int? employeeId);
         Task<Department> GetDepartmentByIdUser(int IdUser);
+        public Task<Employee> GetEmployeeShallow(int? employeeId);
     }
 }
