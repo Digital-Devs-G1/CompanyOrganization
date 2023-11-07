@@ -81,11 +81,23 @@ namespace Presentation.API.Controllers
         [HttpGet]
         [Route("ObtenerAprobador")]
         [ProducesResponseType(typeof(int), 200)]
-        public async Task<IActionResult> UpdateAprrover()
+        public async Task<IActionResult> GetApprover()
         {
             string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
 
-            var value = await _employeeService.NextApprover(Convert.ToInt32(idUser));
+            var value = await _employeeService.GetApprover(Convert.ToInt32(idUser));
+
+            return Ok(value);
+        }
+
+        [HttpGet]
+        [Route("NextApprover")]
+        [ProducesResponseType(typeof(int), 200)]
+        public async Task<IActionResult> GetNextApprover([FromQuery]int amount)
+        {
+            string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
+
+            var value = await _employeeService.GetNextApprover(Convert.ToInt32(idUser), amount);
 
             return Ok(value);
         }

@@ -86,7 +86,24 @@ namespace Application.UseCases
             return response;
         }
 
-        public async Task<int> NextApprover(int id)
+
+        public async Task<int> GetNextApprover(int employeeId, int amount)
+        {
+            if (employeeId < 1)
+                throw new BadRequestException("usuario invalido");
+
+            Employee employee = await _repository.GetEmployee(employeeId);
+
+            if (employee == null)
+                throw new NotFoundException("usuario invalido");
+
+            if (employee.Position.MaxAmount >= amount)
+                return 0;
+
+            return (int)((employee.SuperiorId == null) ? 0 : employee.SuperiorId);
+        }
+
+        public async Task<int> GetApprover(int id)
         {
             if(id < 1)
                 throw new BadRequestException("usuario invalido");
