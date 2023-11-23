@@ -1,7 +1,6 @@
 ﻿using Application.DTO.Request;
 using Application.DTO.Response;
 using Application.Interfaces.IServices;
-using Application.UseCases;
 using Infrastructure.Authentication;
 using Infrastructure.Authentication.Constants;
 using Microsoft.AspNetCore.Authorization;
@@ -93,7 +92,7 @@ namespace Presentation.API.Controllers
         [HttpGet]
         [Route("NextApprover")]
         [ProducesResponseType(typeof(int), 200)]
-        public async Task<IActionResult> GetNextApprover([FromQuery]int amount)
+        public async Task<IActionResult> GetNextApprover([FromQuery] int amount)
         {
             string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
 

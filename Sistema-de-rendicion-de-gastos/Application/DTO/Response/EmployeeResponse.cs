@@ -8,6 +8,6 @@
         public int PositionId { get; set; }
         public int? SuperiorId { get; set; }
         public int DepartmentId { get; set; }
-  
+        public int CompanyId { get; set; }
     }
 }

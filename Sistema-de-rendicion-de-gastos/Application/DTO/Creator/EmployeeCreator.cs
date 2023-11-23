@@ -14,7 +14,8 @@ namespace Application.DTO.Creator
                 LastName = employee.LastName,
                 DepartmentId = employee.DepartamentId,
                 SuperiorId = employee.SuperiorId,
-                PositionId = employee.PositionId
+                PositionId = employee.PositionId,
+                CompanyId = employee.Departament.IdCompany
             };
         }
     }
