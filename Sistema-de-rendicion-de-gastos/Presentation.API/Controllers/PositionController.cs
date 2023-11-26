@@ -1,6 +1,9 @@
 ﻿using Application.DTO.Request;
 using Application.DTO.Response;
 using Application.Interfaces.IServices;
+using Infrastructure.Authentication;
+using Infrastructure.Authentication.Constants;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.API.Handlers;
 
@@ -32,13 +35,16 @@ namespace Presentation.API.Controllers
         [HttpGet]
         [Route("GetAllPosition/")]
         [ProducesResponseType(typeof(List<PositionResponse>), 200)]
+        [Authorize]
         public async Task<IActionResult> GetPosition()
         {
-            var result = await _positionService.GetPositions();
+            string company = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Company);
+
+            var result = await _positionService.GetPositionsByCompany(Convert.ToInt32(company));
 
             return Ok(result);
         }
-        
+
         [HttpPost]
         [Route("Insert/")]
         public async Task<IActionResult> CreatePosition([FromBody] PositionRequest request)

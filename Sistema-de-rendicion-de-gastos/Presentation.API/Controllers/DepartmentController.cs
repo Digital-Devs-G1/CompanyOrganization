@@ -1,6 +1,8 @@
 ﻿using Application.DTO.Request;
 using Application.DTO.Response;
 using Application.Interfaces.IServices;
+using Infrastructure.Authentication;
+using Infrastructure.Authentication.Constants;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.API.Handlers;
 
@@ -34,11 +36,12 @@ namespace Presentation.API.Controllers
         [ProducesResponseType(typeof(List<DepartmentResponse>), 200)]
         public async Task<IActionResult> GetDepartments()
         {
-            var result = await _departmentService.GetDepartments();
+            string idCompany = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Company);
+            var result = await _departmentService.GetDepartmentsByCompany(Convert.ToInt32(idCompany));
 
             return Ok(result);
         }
-        
+
         [HttpPost]
         [Route("Insert/")]
         [ProducesResponseType(StatusCodes.Status201Created)]

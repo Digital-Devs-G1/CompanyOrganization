@@ -45,6 +45,7 @@ namespace Presentation.API.Controllers
         [HttpGet]
         [Route("GetDepartmentByEmployee/")]
         [ProducesResponseType(typeof(DepartmentResponse), 200)]
+        [Authorize]
         public async Task<IActionResult> GetDepartmentByEmployee()
         {
             // metodo para obtener el id  del token

@@ -24,9 +24,9 @@ namespace Infrastructure.Repositories.Querys
             return await _dbContext.Positions.FirstOrDefaultAsync(x => x.Id == positionId);
         }
 
-        public async Task<IEnumerable<Position>> GetPositions()
+        public async Task<IEnumerable<Position>> GetPositionsByCompany(int company)
         {
-            return await _dbContext.Positions.ToListAsync();
+            return await _dbContext.Positions.Where(x => x.IdCompany == company).ToListAsync();
         }
     }
 }

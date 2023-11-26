@@ -26,9 +26,9 @@ namespace Application.UseCases
             _validator = validator;
         }
 
-        public async Task<List<PositionResponse>> GetPositions()
+        public async Task<List<PositionResponse>> GetPositionsByCompany(int company)
         {
-            IEnumerable<Position> entities = await _repository.GetPositions();
+            IEnumerable<Position> entities = await _repository.GetPositionsByCompany(company);
 
             List<PositionResponse> list = entities.Select(e => new PositionResponse()
             {
@@ -47,7 +47,7 @@ namespace Application.UseCases
 
             if(entity == null)
                 throw new NotFoundException("La posicion no existe.");
-     
+
             return _creator.Create(entity);
         }
 

@@ -26,12 +26,12 @@ namespace Application.UseCases
             _validator = validator;
         }
 
-        public async Task<IList<DepartmentResponse>> GetDepartments()
+        public async Task<IList<DepartmentResponse>> GetDepartmentsByCompany(int idCompany)
         {
             IList<DepartmentResponse> list = new List<DepartmentResponse>();
-            IEnumerable<Department> entities = await _query.GetDepartments();
+            IEnumerable<Department> entities = await _query.GetDepartmentsByCompany(idCompany);
 
-            foreach (Department entity in entities)
+            foreach(Department entity in entities)
             {
                 list.Add(_creator.Create(entity));
             }
@@ -62,7 +62,7 @@ namespace Application.UseCases
                 IdCompany = request.IdCompany
             };
 
-           await _command.InsertDepartment(department);
+            await _command.InsertDepartment(department);
         }
 
         public async Task DeleteDepartment(int id)
