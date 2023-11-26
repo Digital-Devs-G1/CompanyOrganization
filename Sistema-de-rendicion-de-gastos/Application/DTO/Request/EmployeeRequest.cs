@@ -8,5 +8,6 @@
         public int DepartmentId { get; set; }
         public int PositionId { get; set; }
         public int? SuperiorId { get; set; }
+        public bool IsApprover { get; set; }
     }
 }

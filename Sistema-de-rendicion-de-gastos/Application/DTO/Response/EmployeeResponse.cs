@@ -9,5 +9,6 @@
         public int? SuperiorId { get; set; }
         public int DepartmentId { get; set; }
         public int CompanyId { get; set; }
+        public bool IsApprover { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace Application.UseCases
         private readonly IEmployeeQuery _repository;
         private readonly IValidator<EmployeeRequest> _validator;
 
-        public EmployeeService(IEmployeeCommand command, IEmployeeQuery repository, IValidator<EmployeeRequest> validator) 
+        public EmployeeService(IEmployeeCommand command, IEmployeeQuery repository, IValidator<EmployeeRequest> validator)
         {
             _repository = repository;
             _creator = new EmployeeCreator();
@@ -32,7 +32,21 @@ namespace Application.UseCases
 
             IEnumerable<Employee> entities = await _repository.GetEmployees();
 
-            foreach (Employee entity in entities)
+            foreach(Employee entity in entities)
+            {
+                list.Add(_creator.Create(entity));
+            }
+
+            return list;
+        }
+
+        public async Task<List<EmployeeResponse>> GetEmployeesByDepartment(int idDep)
+        {
+            List<EmployeeResponse> list = new List<EmployeeResponse>();
+
+            IEnumerable<Employee> entities = await _repository.GetEmployeesByDepartment(idDep);
+
+            foreach(Employee entity in entities)
             {
                 list.Add(_creator.Create(entity));
             }
@@ -58,16 +72,17 @@ namespace Application.UseCases
             if(!validatorResult.IsValid)
                 throw new BadRequestException("Empleado Invalido", validatorResult);
 
-            
+
 
             Employee employee = new Employee
             {
-               Id = request.Id,
-               FirstName = request.FirsName,
-               LastName = request.LastName,
-               DepartamentId = request.DepartmentId,
-               SuperiorId = request.SuperiorId,
-               PositionId = request.PositionId,
+                Id = request.Id,
+                FirstName = request.FirsName,
+                LastName = request.LastName,
+                DepartamentId = request.DepartmentId,
+                SuperiorId = request.SuperiorId,
+                PositionId = request.PositionId,
+                IsApprover = request.IsApprover
             };
 
             await _command.InsertEmployee(employee);
@@ -89,15 +104,15 @@ namespace Application.UseCases
 
         public async Task<int> GetNextApprover(int employeeId, int amount)
         {
-            if (employeeId < 1)
+            if(employeeId < 1)
                 throw new BadRequestException("usuario invalido");
 
             Employee employee = await _repository.GetEmployee(employeeId);
 
-            if (employee == null)
+            if(employee == null)
                 throw new NotFoundException("usuario invalido");
 
-            if (employee.Position.MaxAmount >= amount)
+            if(employee.Position.MaxAmount >= amount)
                 return 0;
 
             return (int)((employee.SuperiorId == null) ? 0 : employee.SuperiorId);
@@ -109,7 +124,7 @@ namespace Application.UseCases
                 throw new BadRequestException("usuario invalido");
 
             Employee entity = await _repository.GetEmployee(id);
-            
+
             if(entity == null)
                 throw new NotFoundException("usuario invalido");
 
@@ -174,5 +189,7 @@ namespace Application.UseCases
 
             await _command.DissmisApprovalsFlag(entity);
         }
+
+
     }
 }

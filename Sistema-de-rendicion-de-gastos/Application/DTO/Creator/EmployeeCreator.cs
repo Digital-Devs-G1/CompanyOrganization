@@ -15,7 +15,8 @@ namespace Application.DTO.Creator
                 DepartmentId = employee.DepartamentId,
                 SuperiorId = employee.SuperiorId,
                 PositionId = employee.PositionId,
-                CompanyId = employee.Departament.IdCompany
+                CompanyId = employee.Departament.IdCompany,
+                IsApprover = employee.IsApprover
             };
         }
     }

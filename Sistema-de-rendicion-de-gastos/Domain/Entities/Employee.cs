@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Entities
+﻿namespace Domain.Entities
 {
     public class Employee
     {
@@ -16,6 +10,7 @@ namespace Domain.Entities
 
         public bool HistoryFlag { get; set; }
         public bool ApprovalsFlag { get; set; }
+        public bool IsApprover { get; set; }
 
         public IEnumerable<Employee> Subordinates { get; set; }
 

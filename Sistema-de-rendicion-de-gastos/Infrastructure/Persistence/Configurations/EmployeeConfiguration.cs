@@ -9,7 +9,7 @@ namespace Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Employee> builder)
         {
             builder.HasKey(e => e.Id);
-              
+
             builder.Property(e => e.Id)
                     .ValueGeneratedNever();
 
@@ -25,6 +25,9 @@ namespace Infrastructure.Persistence.Configurations
                 .IsRequired();
 
             builder.Property(e => e.ApprovalsFlag)
+                .IsRequired();
+
+            builder.Property(e => e.IsApprover)
                 .IsRequired();
 
             builder.Property(e => e.SuperiorId)

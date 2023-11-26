@@ -16,7 +16,7 @@ namespace Infrastructure.Repositories.Querys
 
         public async Task<Department> GetDepartmentByIdUser(int IdUser)
         {
-            return  await _dbContext.Employees
+            return await _dbContext.Employees
                             .Where(e => e.Id == IdUser)
                             .Select(e => e.Departament)
                             .FirstOrDefaultAsync();
@@ -38,7 +38,12 @@ namespace Infrastructure.Repositories.Querys
 
         public async Task<IEnumerable<Employee>> GetEmployees()
         {
-            return await _dbContext.Employees.ToListAsync();
+            return await _dbContext.Employees.Include(x => x.Departament).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Employee>> GetEmployeesByDepartment(int dep)
+        {
+            return await _dbContext.Employees.Where(x => x.DepartamentId == dep).Include(x => x.Departament).ToListAsync();
         }
     }
 }

@@ -43,6 +43,17 @@ namespace Presentation.API.Controllers
         }
 
         [HttpGet]
+        [Route("GetAllByDepartment")]
+        [ProducesResponseType(typeof(List<EmployeeResponse>), 200)]
+        public async Task<IActionResult> GetEmployeeByDepartment()
+        {
+            string idDep = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Department);
+            var result = await _employeeService.GetEmployeesByDepartment(Convert.ToInt32(idDep));
+
+            return Ok(result);
+        }
+
+        [HttpGet]
         [Route("GetDepartmentByEmployee/")]
         [ProducesResponseType(typeof(DepartmentResponse), 200)]
         [Authorize]
