@@ -17,10 +17,12 @@ namespace Application.UseCases
         private readonly IEmployeeCommand _command;
         private readonly IEmployeeQuery _repository;
         private readonly IValidator<EmployeeRequest> _validator;
+        public readonly IPositionQuery _positionRepository;
 
-        public EmployeeService(IEmployeeCommand command, IEmployeeQuery repository, IValidator<EmployeeRequest> validator)
+        public EmployeeService(IEmployeeCommand command, IEmployeeQuery repository, IPositionQuery positionRepository, IValidator<EmployeeRequest> validator)
         {
             _repository = repository;
+            _positionRepository = positionRepository;
             _creator = new EmployeeCreator();
             _command = command;
             _validator = validator;
@@ -40,11 +42,15 @@ namespace Application.UseCases
             return list;
         }
 
-        public async Task<List<EmployeeResponse>> GetEmployeesByDepartment(int idDep)
+        public async Task<List<EmployeeResponse>> GetSuperiors(int idDep, int position)
         {
             List<EmployeeResponse> list = new List<EmployeeResponse>();
 
             IEnumerable<Employee> entities = await _repository.GetEmployeesByDepartment(idDep);
+
+            Position positionUser = await _positionRepository.GetPosition(position);
+
+            entities = entities.Where(x => x.IsApprover && (x.Position.Hierarchy > positionUser.Hierarchy)).ToList();
 
             foreach(Employee entity in entities)
             {

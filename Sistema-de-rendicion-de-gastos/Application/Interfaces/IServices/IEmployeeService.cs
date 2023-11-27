@@ -6,7 +6,7 @@ namespace Application.Interfaces.IServices
     public interface IEmployeeService
     {
         Task<List<EmployeeResponse>> GetEmployees();
-        Task<List<EmployeeResponse>> GetEmployeesByDepartment(int idDep);
+        Task<List<EmployeeResponse>> GetSuperiors(int idDep, int position);
 
         Task<EmployeeResponse> GetEmployee(int employeeId);
         Task CreateEmployee(EmployeeRequest request);

@@ -43,12 +43,11 @@ namespace Presentation.API.Controllers
         }
 
         [HttpGet]
-        [Route("GetAllByDepartment")]
+        [Route("Superiors")]
         [ProducesResponseType(typeof(List<EmployeeResponse>), 200)]
-        public async Task<IActionResult> GetEmployeeByDepartment()
+        public async Task<IActionResult> GetSuperiors(int department, int position)
         {
-            string idDep = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Department);
-            var result = await _employeeService.GetEmployeesByDepartment(Convert.ToInt32(idDep));
+            var result = await _employeeService.GetSuperiors(department, position);
 
             return Ok(result);
         }

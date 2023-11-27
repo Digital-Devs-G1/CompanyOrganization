@@ -43,7 +43,8 @@ namespace Infrastructure.Repositories.Querys
 
         public async Task<IEnumerable<Employee>> GetEmployeesByDepartment(int dep)
         {
-            return await _dbContext.Employees.Where(x => x.DepartamentId == dep).Include(x => x.Departament).ToListAsync();
+            return await _dbContext.Employees.Where(x => x.DepartamentId == dep)
+                .Include(x => x.Departament).Include(x => x.Position).ToListAsync();
         }
     }
 }
