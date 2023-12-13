@@ -22,6 +22,7 @@ namespace Infrastructure.Persistence.Configurations
                 .HasMaxLength(50);
 
             builder.Property(e => e.MaxAmount)
+                    .HasColumnType("decimal(18,2)")
                    .IsRequired();
 
             builder.Property(e => e.IdCompany)

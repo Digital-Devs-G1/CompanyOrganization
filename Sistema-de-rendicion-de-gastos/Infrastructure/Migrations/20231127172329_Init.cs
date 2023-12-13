@@ -80,6 +80,7 @@ namespace Infrastructure.Migrations
                     SuperiorId = table.Column<int>(type: "int", nullable: true),
                     HistoryFlag = table.Column<bool>(type: "bit", nullable: false),
                     ApprovalsFlag = table.Column<bool>(type: "bit", nullable: false),
+                    IsApprover = table.Column<bool>(type: "bit", nullable: false),
                     DepartamentId = table.Column<int>(type: "int", nullable: false),
                     PositionId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -139,12 +140,12 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Employees",
-                columns: new[] { "Id", "ApprovalsFlag", "DepartamentId", "FirstName", "HistoryFlag", "LastName", "PositionId", "SuperiorId" },
+                columns: new[] { "Id", "ApprovalsFlag", "DepartamentId", "FirstName", "HistoryFlag", "IsApprover", "LastName", "PositionId", "SuperiorId" },
                 values: new object[,]
                 {
-                    { 1, false, 1, "diego", false, "rodriguez", 1, null },
-                    { 2, false, 1, "jose", false, "martinez", 2, 1 },
-                    { 3, false, 1, "Miguel Ángel", false, "Merentiel", 1, 2 }
+                    { 1, false, 1, "diego", false, false, "rodriguez", 1, null },
+                    { 2, false, 1, "jose", false, false, "martinez", 2, 1 },
+                    { 3, false, 1, "Miguel Ángel", false, false, "Merentiel", 1, 2 }
                 });
 
             migrationBuilder.CreateIndex(

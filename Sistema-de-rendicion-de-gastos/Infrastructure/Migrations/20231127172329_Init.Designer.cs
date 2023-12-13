@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ReportsDbContext))]
-    [Migration("20231030204411_Init")]
+    [Migration("20231127172329_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -150,6 +150,9 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("HistoryFlag")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsApprover")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -179,6 +182,7 @@ namespace Infrastructure.Migrations
                             DepartamentId = 1,
                             FirstName = "diego",
                             HistoryFlag = false,
+                            IsApprover = false,
                             LastName = "rodriguez",
                             PositionId = 1
                         },
@@ -189,6 +193,7 @@ namespace Infrastructure.Migrations
                             DepartamentId = 1,
                             FirstName = "jose",
                             HistoryFlag = false,
+                            IsApprover = false,
                             LastName = "martinez",
                             PositionId = 2,
                             SuperiorId = 1
@@ -200,6 +205,7 @@ namespace Infrastructure.Migrations
                             DepartamentId = 1,
                             FirstName = "Miguel Ángel",
                             HistoryFlag = false,
+                            IsApprover = false,
                             LastName = "Merentiel",
                             PositionId = 1,
                             SuperiorId = 2

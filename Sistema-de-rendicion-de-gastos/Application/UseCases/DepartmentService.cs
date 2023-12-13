@@ -35,7 +35,6 @@ namespace Application.UseCases
             {
                 list.Add(_creator.Create(entity));
             }
-
             return list;
         }
 
