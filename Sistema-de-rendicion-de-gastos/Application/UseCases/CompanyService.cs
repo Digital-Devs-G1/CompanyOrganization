@@ -48,7 +48,7 @@ namespace Application.UseCases
             return _creator.Create(entity);           
         }
 
-        public async Task CreateCompany(CompanyRequest request)
+        public async Task<int> CreateCompany(CompanyRequest request)
         {
 
             ValidationResult validatorResult = await _validator.ValidateAsync(request);
@@ -64,7 +64,7 @@ namespace Application.UseCases
                 Phone = request.Phone
             };
 
-            await _command.InsertCompany(company);
+            return await _command.InsertCompany(company);
         }
     }
 }

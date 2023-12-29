@@ -8,6 +8,6 @@ namespace Application.Interfaces.IServices
     {
         Task<List<CompanyResponse>> GetCompanys();
         Task<CompanyResponse> GetCompany(int companyId);
-        Task CreateCompany(CompanyRequest request);
+        public Task<int> CreateCompany(CompanyRequest request);
     }
 }

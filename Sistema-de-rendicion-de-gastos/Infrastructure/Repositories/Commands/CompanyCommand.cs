@@ -12,10 +12,10 @@ namespace Infrastructure.Repositories.Commands
             _dbContext = dbContext;
         }
 
-        public async Task InsertCompany(Company company)
+        public async Task<int> InsertCompany(Company company)
         {
             _dbContext.Add(company);
-            await _dbContext.SaveChangesAsync();
+            return await _dbContext.SaveChangesAsync();
         }
     }
 }

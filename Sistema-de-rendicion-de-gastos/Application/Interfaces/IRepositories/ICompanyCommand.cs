@@ -4,6 +4,6 @@ namespace Application.Interfaces.IRepositories
 {
     public interface ICompanyCommand
     {
-        Task InsertCompany(Company company);
+        Task<int> InsertCompany(Company company);
     }
 }
