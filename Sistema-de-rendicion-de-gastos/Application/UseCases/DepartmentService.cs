@@ -29,6 +29,8 @@ namespace Application.UseCases
         public async Task<IList<DepartmentResponse>> GetDepartmentsByCompany(int idCompany)
         {
             IList<DepartmentResponse> list = new List<DepartmentResponse>();
+            if (idCompany == null || idCompany < 0)
+                throw new BadRequestException("Id invalido");
             IEnumerable<Department> entities = await _query.GetDepartmentsByCompany(idCompany);
 
             foreach(Department entity in entities)
@@ -40,6 +42,9 @@ namespace Application.UseCases
 
         public async Task<DepartmentResponse> GetDepartment(int departmentId)
         {
+            if (departmentId == null || departmentId < 0)
+                throw new BadRequestException("Id invalido");
+
             Department entity = await _query.GetDepartment(departmentId);
 
             if(entity == null)
@@ -48,7 +53,7 @@ namespace Application.UseCases
             return _creator.Create(entity);
         }
 
-        public async Task CreateDepartment(DepartmentRequest request)
+        public async Task<int> CreateDepartment(DepartmentRequest request)
         {
             ValidationResult validatorResult = await _validator.ValidateAsync(request);
 
@@ -61,18 +66,20 @@ namespace Application.UseCases
                 IdCompany = request.IdCompany
             };
 
-            await _command.InsertDepartment(department);
+            return await _command.InsertDepartment(department);
         }
 
-        public async Task DeleteDepartment(int id)
+        public async Task<int> DeleteDepartment(int id)
         {
+            if (id == null || id < 0)
+                throw new BadRequestException("Id invalido");
+
             Department entity = await _query.GetDepartment(id);
 
             if(entity == null)
                 throw new NotFoundException("El departamento no existe.");
 
-            await _command.DeleteDepartment(entity);
-
+            return await _command.DeleteDepartment(entity);
         }
     }
 }

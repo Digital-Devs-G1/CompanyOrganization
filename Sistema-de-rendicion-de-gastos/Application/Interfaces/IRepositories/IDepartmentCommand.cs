@@ -5,7 +5,7 @@ namespace Application.Interfaces.IRepositories
 {
     public interface IDepartmentCommand
     {
-        Task DeleteDepartment(Department entity);
-        Task InsertDepartment(Department department);
+        Task<int> DeleteDepartment(Department entity);
+        Task<int> InsertDepartment(Department department);
     }
 }

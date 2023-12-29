@@ -14,16 +14,16 @@ namespace Infrastructure.Repositories.Commands
             _dbContext = dbContext;
         }
 
-        public async Task DeleteDepartment(Department entity)
+        public async Task<int> DeleteDepartment(Department entity)
         {
             _dbContext.Departments.Remove(entity);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task InsertDepartment(Department department)
+        public async Task<int> InsertDepartment(Department department)
         {
             _dbContext.Add(department);
-            await _dbContext.SaveChangesAsync();
+            return await _dbContext.SaveChangesAsync();
         }
 
     }
