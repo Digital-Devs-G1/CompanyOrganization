@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\Application.csproj" />
+    <ProjectReference Include="..\Presentation.API\Presentation.API.csproj" />
   </ItemGroup>
 
 </Project>
