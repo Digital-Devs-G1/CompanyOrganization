@@ -14,7 +14,7 @@ namespace Infrastructure.Repositories.Querys
             _dbContext = dbContext;
         }
 
-        public async Task<Department> GetDepartmentByIdUser(int IdUser)
+        public async Task<Department> GetEmployeeDepartment(int IdUser)
         {
             return await _dbContext.Employees
                             .Where(e => e.Id == IdUser)

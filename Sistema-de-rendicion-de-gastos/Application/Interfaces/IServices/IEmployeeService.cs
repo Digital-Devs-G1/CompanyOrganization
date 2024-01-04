@@ -12,7 +12,7 @@ namespace Application.Interfaces.IServices
         Task CreateEmployee(EmployeeRequest request);
         Task<int> GetApprover(int id);
         public Task<int> GetNextApprover(int employeeId, int amount);
-        Task<DepartmentResponse> GetDepartmentByIdUser(int idUser);
+        Task<DepartmentResponse> GetEmployeeDepartment(int idUser);
         Task DeleteEmployee(int id);
         Task AcceptHistoryFlag(int id);
         Task DissmisHistoryFlag(int id);

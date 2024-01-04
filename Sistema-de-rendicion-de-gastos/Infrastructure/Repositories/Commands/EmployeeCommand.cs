@@ -36,17 +36,17 @@ namespace Infrastructure.Repositories.Commands
             _dbContext.SaveChanges();
         }
 
-        public async Task DeleteEmployee(Employee employee)
+        public async Task<int> DeleteEmployee(Employee employee)
         {
             _dbContext.Employees.Remove(employee);
 
-            _dbContext.SaveChangesAsync();
+            return await _dbContext.SaveChangesAsync();
         }
 
-        public async Task InsertEmployee(Employee employee)
+        public async Task<int> InsertEmployee(Employee employee)
         {
             _dbContext.Add(employee);
-            await _dbContext.SaveChangesAsync();
+            return await _dbContext.SaveChangesAsync();
         }
     }
 }

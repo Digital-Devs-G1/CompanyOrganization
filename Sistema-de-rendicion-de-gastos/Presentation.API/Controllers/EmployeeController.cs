@@ -61,7 +61,7 @@ namespace Presentation.API.Controllers
             // metodo para obtener el id  del token
             string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
 
-            DepartmentResponse result = await _employeeService.GetDepartmentByIdUser(Convert.ToInt32(idUser));
+            DepartmentResponse result = await _employeeService.GetEmployeeDepartment(Convert.ToInt32(idUser));
 
             return Ok(result);
         }

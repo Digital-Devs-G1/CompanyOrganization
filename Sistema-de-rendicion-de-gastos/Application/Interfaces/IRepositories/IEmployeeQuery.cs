@@ -7,7 +7,7 @@ namespace Application.Interfaces.IRepositories
         Task<IEnumerable<Employee>> GetEmployees();
         Task<IEnumerable<Employee>> GetEmployeesByDepartment(int dep);
         Task<Employee> GetEmployee(int? employeeId);
-        Task<Department> GetDepartmentByIdUser(int IdUser);
+        Task<Department?> GetEmployeeDepartment(int IdUser);
         public Task<Employee> GetEmployeeShallow(int? employeeId);
     }
 }

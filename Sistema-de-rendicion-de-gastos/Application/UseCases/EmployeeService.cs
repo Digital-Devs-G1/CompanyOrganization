@@ -12,17 +12,16 @@ namespace Application.UseCases
 {
     public class EmployeeService : IEmployeeService
     {
-
         private readonly EmployeeCreator _creator;
         private readonly IEmployeeCommand _command;
         private readonly IEmployeeQuery _repository;
         private readonly IValidator<EmployeeRequest> _validator;
-        public readonly IPositionQuery _positionRepository;
+        public readonly IPositionService _positionService;
 
-        public EmployeeService(IEmployeeCommand command, IEmployeeQuery repository, IPositionQuery positionRepository, IValidator<EmployeeRequest> validator)
+        public EmployeeService(IEmployeeCommand command, IEmployeeQuery repository, IPositionService positionRepository, IValidator<EmployeeRequest> validator)
         {
             _repository = repository;
-            _positionRepository = positionRepository;
+            _positionService = positionRepository;
             _creator = new EmployeeCreator();
             _command = command;
             _validator = validator;
@@ -48,7 +47,7 @@ namespace Application.UseCases
 
             IEnumerable<Employee> entities = await _repository.GetEmployeesByDepartment(idDep);
 
-            Position positionUser = await _positionRepository.GetPosition(position);
+            Position positionUser = await _positionService.GetPositionEntity(position);
 
             entities = entities.Where(x => x.IsApprover && (x.Position.Hierarchy > positionUser.Hierarchy)).ToList();
 
@@ -62,6 +61,9 @@ namespace Application.UseCases
 
         public async Task<EmployeeResponse> GetEmployee(int employeeId)
         {
+            if (employeeId < 1)
+                throw new BadRequestException("Formato del id del empleado invalido");
+
             Employee entity = await _repository.GetEmployee(employeeId);
 
             if(entity == null)
@@ -70,7 +72,7 @@ namespace Application.UseCases
             return _creator.Create(entity);
         }
 
-        public async Task CreateEmployee(EmployeeRequest request)
+        public async Task<int> CreateEmployee(EmployeeRequest request)
         {
 
             ValidationResult validatorResult = await _validator.ValidateAsync(request);
@@ -91,12 +93,18 @@ namespace Application.UseCases
                 IsApprover = request.IsApprover
             };
 
-            await _command.InsertEmployee(employee);
+            return await _command.InsertEmployee(employee);
         }
 
-        public async Task<DepartmentResponse> GetDepartmentByIdUser(int idUser)
+        public async Task<DepartmentResponse> GetEmployeeDepartment(int employeeId)
         {
-            Department entity = await _repository.GetDepartmentByIdUser(idUser);
+            if (employeeId < 1)
+                throw new BadRequestException("Formato del id del empleado invalido");
+
+            Department? entity = await _repository.GetEmployeeDepartment(employeeId);
+
+            if (entity == null)
+                throw new NotFoundException("usuario invalido");
 
             DepartmentResponse response = new DepartmentResponse()
             {
@@ -134,25 +142,20 @@ namespace Application.UseCases
             if(entity == null)
                 throw new NotFoundException("usuario invalido");
 
-            //decimal MaxAmountSuperior = entity.Superior.Position.MaxAmount;
-
-            // si devolvemos el mismo id del superior significa que es el que lo puede aprobar.
-            /*if(MaxAmountSuperior >= monto || entity.Superior.SuperiorId == null) // devolvemos el ultimo en la cadena, el cual puede ser el superior directo pormas q no lo pueda aprobar.
-                return entity.SuperiorId;
-            //throw new BadRequestException("Superior puede aprobar el monto solicitado.");
-*/
-            //return await this.NextApprover(entity*.SuperiorId, monto);
             return (int)((entity.SuperiorId == null) ? 0 : entity.SuperiorId);
         }
 
-        public async Task DeleteEmployee(int id)
+        public async Task<int> DeleteEmployee(int id)
         {
+            if (id < 1)
+                throw new BadRequestException("usuario invalido");
+
             Employee entity = await _repository.GetEmployee(id);
 
             if(entity == null)
                 throw new BadRequestException("empleado invalido");
 
-            await _command.DeleteEmployee(entity);
+            return await _command.DeleteEmployee(entity);
         }
 
         public async Task AcceptHistoryFlag(int id)

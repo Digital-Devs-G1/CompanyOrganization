@@ -40,13 +40,19 @@ namespace Application.UseCases
 
             return list;
         }
-
-        public async Task<PositionResponse> GetPosition(int positionId)
+        public async Task<Position> GetPositionEntity(int positionId)
         {
             Position entity = await _repository.GetPosition(positionId);
 
-            if(entity == null)
+            if (entity == null)
                 throw new NotFoundException("La posicion no existe.");
+
+            return entity;
+        }
+
+        public async Task<PositionResponse> GetPosition(int positionId)
+        {
+            Position entity = await GetPositionEntity(positionId);
 
             return _creator.Create(entity);
         }
