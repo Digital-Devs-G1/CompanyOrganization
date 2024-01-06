@@ -9,14 +9,14 @@ namespace Application.Interfaces.IServices
         Task<List<EmployeeResponse>> GetSuperiors(int idDep, int position);
 
         Task<EmployeeResponse> GetEmployee(int employeeId);
-        Task CreateEmployee(EmployeeRequest request);
+        Task<int> CreateEmployee(EmployeeRequest request);
         Task<int> GetApprover(int id);
         public Task<int> GetNextApprover(int employeeId, int amount);
         Task<DepartmentResponse> GetEmployeeDepartment(int idUser);
-        Task DeleteEmployee(int id);
-        Task AcceptHistoryFlag(int id);
-        Task DissmisHistoryFlag(int id);
-        Task AcceptApprovalsFlagFlag(int id);
-        Task DissmisApprovalsFlag(int id);
+        Task<int> DeleteEmployee(int id);
+        Task<int> EnableHistoryFlag(int id);
+        Task<int> DisableHistoryFlag(int id);
+        Task<int> EnableApprovalsFlagFlag(int id);
+        Task<int> DisableApprovalsFlag(int id);
     }
 }

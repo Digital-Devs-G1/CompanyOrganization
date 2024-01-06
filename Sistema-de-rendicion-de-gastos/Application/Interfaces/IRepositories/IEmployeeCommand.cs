@@ -4,11 +4,11 @@ namespace Application.Interfaces.IRepositories
 {
     public interface IEmployeeCommand
     {
-        Task AcceptApprovalsFlagFlag(Employee entity);
-        Task AcceptHistoryFlag(Employee entity);
+        Task<int> AcceptApprovalsFlagFlag(Employee entity);
+        Task<int> AcceptHistoryFlag(Employee entity);
         Task<int> DeleteEmployee(Employee employee);
-        Task DissmisApprovalsFlag(Employee entity);
-        Task DissmisHistoryFlag(Employee entity);
+        Task<int> DissmisApprovalsFlag(Employee entity);
+        Task<int> DissmisHistoryFlag(Employee entity);
         Task<int> InsertEmployee(Employee employee);
     }
 }

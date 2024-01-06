@@ -18,7 +18,8 @@ namespace Presentation.API.Handlers
                 statusCode = HttpStatusCode.NotFound;
                 message.Message = context.Exception.Message;
             }
-            else if(context.Exception is BadRequestException) 
+            else if(context.Exception is BadRequestException||
+                context.Exception is EmployeeIdFormatException) 
             {
                 statusCode = HttpStatusCode.BadRequest;
                 message.Message = context.Exception.Message;

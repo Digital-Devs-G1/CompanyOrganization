@@ -13,17 +13,17 @@ namespace Infrastructure.Repositories.Commands
             _dbContext = dbContext;
         }
 
-        public async Task DeletePosition(Position entity)
+        public async Task<int> DeletePosition(Position entity)
         {
             _dbContext.Positions.Remove(entity);
-            _dbContext.SaveChangesAsync();
+            return await _dbContext.SaveChangesAsync();
         }
 
-        public async Task InsertPosition(Position position)
+        public async Task<int> InsertPosition(Position position)
         {
             _dbContext.Add(position);
 
-            await _dbContext.SaveChangesAsync();
+            return await _dbContext.SaveChangesAsync();
         }
     }
 }

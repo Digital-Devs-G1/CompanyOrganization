@@ -33,7 +33,7 @@ namespace UnitTest
                 IdCompany = 1
             };
 
-            //
+            //ACT
             var amountOfModifiedRegisters = await service.CreateDepartment(request);
 
             //ASSERT
@@ -205,13 +205,7 @@ namespace UnitTest
                 .ReturnsAsync(1);
             var service = new DepartmentService(mockQuery.Object, mockCommand.Object, validatorMock.Object);
 
-            var request = new DepartmentRequest
-            {
-                Name = "DepartmentTest",
-                IdCompany = 1
-            };
-
-            //
+            //ACT
             var amountOfModifiedRegisters = await service.DeleteDepartment(1);
 
             //ASSERT
@@ -229,7 +223,7 @@ namespace UnitTest
 
             //ACT && ASSERT
             await Assert.ThrowsAsync<BadRequestException>(async () =>
-                await service.GetDepartment(-1));
+                await service.DeleteDepartment(-1));
         }
 
         [Fact]
@@ -246,7 +240,7 @@ namespace UnitTest
 
             //ACT && ASSERT
             await Assert.ThrowsAsync<NotFoundException>(async () =>
-                await service.GetDepartment(1));
+                await service.DeleteDepartment(1));
         }
     }
 }

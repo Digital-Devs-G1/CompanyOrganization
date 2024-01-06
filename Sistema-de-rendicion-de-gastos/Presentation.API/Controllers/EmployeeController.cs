@@ -60,9 +60,8 @@ namespace Presentation.API.Controllers
         {
             // metodo para obtener el id  del token
             string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
-
+            
             DepartmentResponse result = await _employeeService.GetEmployeeDepartment(Convert.ToInt32(idUser));
-
             return Ok(result);
         }
 
@@ -87,7 +86,7 @@ namespace Presentation.API.Controllers
 
             return Ok();
         }
-
+        
         [HttpGet]
         [Route("ObtenerAprobador")]
         [ProducesResponseType(typeof(int), 200)]
@@ -120,7 +119,7 @@ namespace Presentation.API.Controllers
         {
             string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
 
-            await _employeeService.AcceptHistoryFlag(Convert.ToInt32(idUser));
+            await _employeeService.EnableHistoryFlag(Convert.ToInt32(idUser));
             return Ok();
         }
 
@@ -131,7 +130,7 @@ namespace Presentation.API.Controllers
         {
             string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
 
-            await _employeeService.DissmisHistoryFlag(Convert.ToInt32(idUser));
+            await _employeeService.DisableHistoryFlag(Convert.ToInt32(idUser));
             return Ok();
         }
 
@@ -142,7 +141,7 @@ namespace Presentation.API.Controllers
         {
             string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
 
-            await _employeeService.AcceptApprovalsFlagFlag(Convert.ToInt32(idUser));
+            await _employeeService.EnableApprovalsFlagFlag(Convert.ToInt32(idUser));
             return Ok();
         }
 
@@ -153,7 +152,7 @@ namespace Presentation.API.Controllers
         {
             string idUser = JwtHelper.GetClaimValue(Request.Headers["Authorization"], TypeClaims.Id);
 
-            await _employeeService.DissmisApprovalsFlag(Convert.ToInt32(idUser));
+            await _employeeService.DisableApprovalsFlag(Convert.ToInt32(idUser));
 
             return Ok();
         }

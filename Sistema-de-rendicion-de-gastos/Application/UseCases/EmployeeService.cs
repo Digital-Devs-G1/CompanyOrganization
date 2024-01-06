@@ -43,15 +43,21 @@ namespace Application.UseCases
 
         public async Task<List<EmployeeResponse>> GetSuperiors(int idDep, int position)
         {
-            List<EmployeeResponse> list = new List<EmployeeResponse>();
-
-            IEnumerable<Employee> entities = await _repository.GetEmployeesByDepartment(idDep);
+            if (idDep < 1)
+                throw new BadRequestException("Formato del id del departamento es invalido");
+            
+            if (position < 1)
+                throw new BadRequestException("Formato del id del cargo es invalido");
 
             Position positionUser = await _positionService.GetPositionEntity(position);
+            if (positionUser == null)
+                throw new NotFoundException("La posicion no existe.");
 
+            IEnumerable<Employee> entities = await _repository.GetEmployeesByDepartment(idDep);
             entities = entities.Where(x => x.IsApprover && (x.Position.Hierarchy > positionUser.Hierarchy)).ToList();
-
-            foreach(Employee entity in entities)
+            
+            List<EmployeeResponse> list = new List<EmployeeResponse>();
+            foreach (Employee entity in entities)
             {
                 list.Add(_creator.Create(entity));
             }
@@ -118,7 +124,10 @@ namespace Application.UseCases
 
         public async Task<int> GetNextApprover(int employeeId, int amount)
         {
-            if(employeeId < 1)
+            if (amount < 0)
+                throw new BadRequestException("La cantidad debe ser mayor a cero");
+
+            if (employeeId < 1)
                 throw new BadRequestException("usuario invalido");
 
             Employee employee = await _repository.GetEmployee(employeeId);
@@ -153,52 +162,62 @@ namespace Application.UseCases
             Employee entity = await _repository.GetEmployee(id);
 
             if(entity == null)
-                throw new BadRequestException("empleado invalido");
+                throw new NotFoundException("empleado invalido");
 
             return await _command.DeleteEmployee(entity);
         }
 
-        public async Task AcceptHistoryFlag(int id)
+        public async Task<int> EnableHistoryFlag(int id)
         {
+            if (id < 1)
+                throw new EmployeeIdFormatException();
+
             Employee entity = await _repository.GetEmployee(id);
 
             if(entity == null)
-                throw new BadRequestException("empleado invalido");
+                throw new NotFoundException("empleado invalido");
 
-            await _command.AcceptHistoryFlag(entity);
+            return await _command.AcceptHistoryFlag(entity);
         }
 
-        public async Task DissmisHistoryFlag(int id)
+        public async Task<int> DisableHistoryFlag(int id)
         {
+            if (id < 1)
+                throw new EmployeeIdFormatException();
+
             Employee entity = await _repository.GetEmployee(id);
 
             if(entity == null)
-                throw new BadRequestException("empleado invalido");
+                throw new NotFoundException("empleado invalido");
 
-            await _command.DissmisHistoryFlag(entity);
-
+            return await _command.DissmisHistoryFlag(entity);
         }
 
-        public async Task AcceptApprovalsFlagFlag(int id)
+        public async Task<int> EnableApprovalsFlagFlag(int id)
         {
+            if (id < 1)
+                throw new EmployeeIdFormatException();
+
             Employee entity = await _repository.GetEmployee(id);
 
             if(entity == null)
-                throw new BadRequestException("empleado invalido");
+                throw new NotFoundException("empleado invalido");
 
-            await _command.AcceptApprovalsFlagFlag(entity);
+            return await _command.AcceptApprovalsFlagFlag(entity);
         }
 
-        public async Task DissmisApprovalsFlag(int id)
+        public async Task<int> DisableApprovalsFlag(int id)
         {
+            if (id < 1)
+                throw new EmployeeIdFormatException();
+
             Employee entity = await _repository.GetEmployee(id);
 
             if(entity == null)
-                throw new BadRequestException("empleado invalido");
+                throw new NotFoundException("empleado invalido");
 
-            await _command.DissmisApprovalsFlag(entity);
+            return await _command.DissmisApprovalsFlag(entity);
         }
-
 
     }
 }

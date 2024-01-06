@@ -28,6 +28,9 @@ namespace Application.UseCases
 
         public async Task<List<PositionResponse>> GetPositionsByCompany(int company)
         {
+            if (company < 1)
+                throw new BadRequestException("Formato del id de la compania es invalido");
+
             IEnumerable<Position> entities = await _repository.GetPositionsByCompany(company);
 
             List<PositionResponse> list = entities.Select(e => new PositionResponse()
@@ -40,8 +43,11 @@ namespace Application.UseCases
 
             return list;
         }
+
         public async Task<Position> GetPositionEntity(int positionId)
         {
+            if (positionId < 1)
+                throw new BadRequestException("Formato del id de la posicion es invalido");
             Position entity = await _repository.GetPosition(positionId);
 
             if (entity == null)
@@ -57,7 +63,7 @@ namespace Application.UseCases
             return _creator.Create(entity);
         }
 
-        public async Task CreatePosition(PositionRequest request)
+        public async Task<int> CreatePosition(PositionRequest request)
         {
             ValidationResult validationResult = await _validator.ValidateAsync(request);
 
@@ -72,17 +78,19 @@ namespace Application.UseCases
                 IdCompany = request.CompanyId
             };
 
-            await _command.InsertPosition(position);
+            return await _command.InsertPosition(position);
         }
 
-        public async Task DeletePosition(int id)
+        public async Task<int> DeletePosition(int id)
         {
+            if (id < 1)
+                throw new BadRequestException("Formato del id de la posicion es invalido");
             Position entity = await _repository.GetPosition(id);
 
             if(entity == null)
                 throw new NotFoundException("La posicion no existe.");
 
-            await _command.DeletePosition(entity);
+            return await _command.DeletePosition(entity);
         }
     }
 }

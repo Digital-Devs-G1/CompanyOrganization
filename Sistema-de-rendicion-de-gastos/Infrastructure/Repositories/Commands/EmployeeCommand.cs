@@ -12,28 +12,28 @@ namespace Infrastructure.Repositories.Commands
             _dbContext = dbContext;
         }
 
-        public async Task AcceptApprovalsFlagFlag(Employee entity)
+        public async Task<int> AcceptApprovalsFlagFlag(Employee entity)
         {
             entity.ApprovalsFlag = true;
-            _dbContext.SaveChanges();
+            return _dbContext.SaveChanges();
         }
 
-        public async Task AcceptHistoryFlag(Employee entity)
+        public async Task<int> AcceptHistoryFlag(Employee entity)
         {
             entity.HistoryFlag = true;
-            _dbContext.SaveChanges();
+            return _dbContext.SaveChanges();
         }
 
-        public async Task DissmisApprovalsFlag(Employee entity)
+        public async Task<int> DissmisApprovalsFlag(Employee entity)
         {
             entity.ApprovalsFlag = false;
-            _dbContext.SaveChanges();
+            return _dbContext.SaveChanges();
         }
 
-        public async Task DissmisHistoryFlag(Employee entity)
+        public async Task<int> DissmisHistoryFlag(Employee entity)
         {
             entity.HistoryFlag = false;
-            _dbContext.SaveChanges();
+            return _dbContext.SaveChanges();
         }
 
         public async Task<int> DeleteEmployee(Employee employee)

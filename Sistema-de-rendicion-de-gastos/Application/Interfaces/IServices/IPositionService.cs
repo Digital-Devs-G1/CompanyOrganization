@@ -9,7 +9,7 @@ namespace Application.Interfaces.IServices
         Task<List<PositionResponse>> GetPositionsByCompany(int company);
         Task<PositionResponse> GetPosition(int positionId);
         Task<Position> GetPositionEntity(int positionId);
-        Task CreatePosition(PositionRequest request);
-        Task DeletePosition(int id);
+        Task<int> CreatePosition(PositionRequest request);
+        Task<int> DeletePosition(int id);
     }
 }
